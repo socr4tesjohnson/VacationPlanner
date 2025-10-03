@@ -15,9 +15,9 @@ const contactSchema = z.object({
   packageId: z.string().optional(),
   startDate: z.string().optional(),
   endDate: z.string().optional(),
-  flexible: z.boolean().default(true),
-  adults: z.number().min(1, "At least 1 adult required").default(2),
-  children: z.number().min(0).default(0),
+  flexible: z.boolean().optional().default(true),
+  adults: z.number().min(1, "At least 1 adult required").optional().default(2),
+  children: z.number().min(0).optional().default(0),
   budgetRange: z.string().optional(),
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
@@ -46,7 +46,7 @@ export default function ContactPage() {
     formState: { errors },
     setValue,
     watch,
-  } = useForm<ContactFormData>({
+  } = useForm({
     resolver: zodResolver(contactSchema),
     defaultValues: {
       adults: 2,

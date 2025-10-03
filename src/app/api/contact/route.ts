@@ -86,8 +86,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error: "Invalid form data: " + error.errors.map(e => e.message).join(", "),
-          errors: error.errors,
+          error: "Invalid form data: " + error.issues.map(e => e.message).join(", "),
+          errors: error.issues,
         },
         { status: 400 }
       );

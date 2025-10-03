@@ -35,7 +35,7 @@ export async function GET(
       type: packageData.type,
       images: packageData.images.map((img) => ({
         url: img.url,
-        alt: img.alt,
+        alt: img.altText,
       })),
     });
   } catch (error) {

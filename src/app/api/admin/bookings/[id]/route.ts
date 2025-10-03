@@ -148,7 +148,7 @@ async function handlePATCH(
     }
 
     // Calculate new balance due if pricing changes
-    let balanceDue;
+    let balanceDue: Prisma.Decimal | undefined;
     if (validatedData.totalPrice !== undefined || validatedData.depositPaid !== undefined) {
       const totalPrice =
         validatedData.totalPrice !== undefined
@@ -246,7 +246,7 @@ async function handlePATCH(
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: "Validation error", details: error.errors },
+        { error: "Validation error", details: error.issues },
         { status: 400 }
       );
     }
