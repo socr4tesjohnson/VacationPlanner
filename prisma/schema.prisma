@@ -1,0 +1,254 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  firstName String
+  lastName  String
+  role      UserRole  @default(AGENT)
+  password  String
+  active    Boolean   @default(true)
+  lastLogin DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  sessions  Session[]
+  bookings  Booking[] // Bookings created by this agent/user
+
+  @@index([email])
+  @@index([role])
+  @@index([active])
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([token])
+  @@index([expiresAt])
+}
+
+model VacationPackage {
+  id               String           @id @default(uuid())
+  title            String
+  slug             String           @unique
+  type             String
+  destination      String
+  description      String
+  shortDescription String
+  startingPrice    Float
+  currency         String           @default("USD")
+  pricePerPerson   Boolean          @default(true)
+  deposit          Float?
+  nights           Int
+  days             Int
+  minTravelers     Int              @default(1)
+  maxTravelers     Int              @default(10)
+  inclusions       String
+  exclusions       String
+  featured         Boolean          @default(false)
+  active           Boolean          @default(true)
+  tags             String
+  category         String?
+  priority         Int              @default(0)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  inquiries        ContactInquiry[]
+  images           Image[]
+  itineraries      Itinerary[]
+  bookings         Booking[] // Bookings for this package
+  testimonials     Testimonial[] // Testimonials for this package
+
+  @@index([slug])
+  @@index([type])
+  @@index([featured])
+  @@index([active])
+}
+
+model Image {
+  id        String          @id @default(uuid())
+  packageId String
+  url       String
+  altText   String
+  caption   String?
+  isPrimary Boolean         @default(false)
+  order     Int             @default(0)
+  width     Int?
+  height    Int?
+  package   VacationPackage @relation(fields: [packageId], references: [id], onDelete: Cascade)
+
+  @@index([packageId])
+}
+
+model Itinerary {
+  id          String          @id @default(uuid())
+  packageId   String
+  dayNumber   Int
+  title       String
+  description String
+  activities  String
+  meals       String
+  package     VacationPackage @relation(fields: [packageId], references: [id], onDelete: Cascade)
+
+  @@index([packageId])
+}
+
+model Customer {
+  id           String           @id @default(uuid())
+  email        String           @unique
+  firstName    String
+  lastName     String
+  phone        String?
+  preferences  String?
+  status       String           @default("active")
+  notes        String?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  inquiries    ContactInquiry[]
+  bookings     Booking[] // Bookings made by this customer
+  testimonials Testimonial[] // Testimonials from this customer
+
+  @@index([email])
+  @@index([lastName])
+  @@index([status])
+}
+
+model ContactInquiry {
+  id           String           @id @default(uuid())
+  firstName    String
+  lastName     String
+  email        String
+  phone        String
+  customerId   String?
+  packageId    String?
+  packageTitle String?
+  startDate    DateTime?
+  endDate      DateTime?
+  flexible     Boolean          @default(true)
+  adults       Int              @default(2)
+  children     Int              @default(0)
+  childAges    String
+  budgetRange  String?
+  message      String
+  status       String           @default("new")
+  source       String?
+  userAgent    String?
+  ipAddress    String?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  customer     Customer?        @relation(fields: [customerId], references: [id])
+  package      VacationPackage? @relation(fields: [packageId], references: [id])
+
+  @@index([status])
+  @@index([email])
+  @@index([createdAt])
+  @@index([customerId])
+}
+
+/// Booking model represents a confirmed or pending vacation booking
+/// Confirmation numbers are generated in format: VPL-YYYY-{randomString}
+/// Status workflow: PENDING → CONFIRMED → COMPLETED (or CANCELLED)
+/// Pricing: totalPrice = base price, depositPaid = amount paid, balanceDue = remaining
+model Booking {
+  id                 String            @id @default(uuid())
+  confirmationNumber String            @unique // Format: VPL-2025-ABC123
+  customerId         String // Customer who made the booking
+  packageId          String // Vacation package being booked
+  userId             String? // Agent/user who created the booking
+  status             BookingStatus     @default(PENDING)
+  departureDate      DateTime // When the trip starts
+  returnDate         DateTime // When the trip ends
+  totalPrice         Decimal // Total price for the booking
+  depositPaid        Decimal           @default(0.00) // Amount of deposit paid
+  balanceDue         Decimal // Remaining balance (calculated: totalPrice - depositPaid)
+  adults             Int // Number of adults
+  children           Int               @default(0) // Number of children
+  specialRequests    String? // Special needs/requests (dietary, accessibility, etc.)
+  notes              String? // Internal notes for staff
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  customer           Customer          @relation(fields: [customerId], references: [id])
+  package            VacationPackage   @relation(fields: [packageId], references: [id])
+  user               User?             @relation(fields: [userId], references: [id])
+  travelers          BookingTraveler[] // Individual travelers on this booking
+
+  @@index([confirmationNumber])
+  @@index([customerId])
+  @@index([packageId])
+  @@index([userId])
+  @@index([status])
+  @@index([departureDate])
+}
+
+/// BookingTraveler model stores individual traveler information for a booking
+/// Each booking can have multiple travelers (adults and children)
+/// Travelers are automatically deleted when the booking is deleted (cascade)
+model BookingTraveler {
+  id           String    @id @default(uuid())
+  bookingId    String // Link to the booking
+  firstName    String
+  lastName     String
+  dateOfBirth  DateTime? // Optional date of birth
+  age          Int? // Age at time of travel (can be calculated from DOB or entered manually)
+  isChild      Boolean   @default(false) // Used for pricing purposes
+  specialNeeds String? // Dietary restrictions, accessibility needs, etc.
+  booking      Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId])
+}
+
+enum UserRole {
+  ADMIN
+  AGENT
+  MANAGER
+}
+
+enum BookingStatus {
+  PENDING // Awaiting confirmation
+  CONFIRMED // Booking confirmed
+  CANCELLED // Booking cancelled
+  COMPLETED // Trip completed
+}
+
+/// Testimonial model represents customer reviews and feedback
+/// Approval workflow: submitted (approved=false) → reviewed by admin → approved (approved=true) → displayed on public site
+/// Featured testimonials (featured=true) are shown on the homepage
+/// Rating scale: 1-5 stars (1=poor, 5=excellent)
+/// customerId and packageId are optional - some testimonials may not link to specific records in the system
+model Testimonial {
+  id               String           @id @default(uuid())
+  customerName     String // Name to display publicly (may differ from actual customer name)
+  customerId       String? // Optional link to Customer record if they're in the system
+  customerLocation String? // Optional location display (e.g., "Orlando, FL" or "Family of 4")
+  packageId        String? // Optional link to VacationPackage they reviewed
+  rating           Int // 1-5 stars rating
+  title            String // Short headline (e.g., "Best vacation ever!")
+  content          String // The full testimonial text
+  travelDate       DateTime? // When they took the trip (optional)
+  featured         Boolean          @default(false) // Show on homepage
+  approved         Boolean          @default(false) // Admin must approve before public display
+  active           Boolean          @default(true) // Can be hidden without deleting
+  imageUrl         String? // Optional customer photo
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  customer         Customer?        @relation(fields: [customerId], references: [id])
+  package          VacationPackage? @relation(fields: [packageId], references: [id])
+
+  @@index([approved])
+  @@index([featured])
+  @@index([active])
+  @@index([rating])
+  @@index([createdAt])
+  @@index([approved, active, featured]) // Composite index for efficient homepage queries
+}
