@@ -208,7 +208,7 @@ export default function TestimonialsClient() {
                 No testimonials found
               </h3>
               <p className="text-gray-600 mb-6">
-                We couldn't find any testimonials matching your filters.
+                We couldn&apos;t find any testimonials matching your filters.
               </p>
               <button
                 onClick={() => handleRatingFilter("all")}

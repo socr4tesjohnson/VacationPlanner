@@ -96,7 +96,7 @@ export default function RecommendationResults({
           you within 24 hours to discuss your options and answer any questions.
         </p>
         <p className="text-sm text-gray-500">
-          You'll receive a confirmation email shortly with your inquiry details.
+          You&apos;ll receive a confirmation email shortly with your inquiry details.
         </p>
       </div>
     </div>

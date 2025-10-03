@@ -31,7 +31,17 @@
       "Bash(gh:*)",
       "Bash(git add:*)",
       "Bash(del nul)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(git config:*)",
+      "Bash(git commit:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(git remote set-url:*)",
+      "WebSearch",
+      "Bash(npm i:*)",
+      "Bash(set VERCEL_TOKEN=cn0PPRnX39GsbqfzEtO7nb0f)",
+      "Bash(vercel link:*)",
+      "Bash(vercel:*)"
     ],
     "deny": [],
     "ask": []

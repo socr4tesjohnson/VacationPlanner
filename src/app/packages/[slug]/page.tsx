@@ -107,7 +107,7 @@ export default async function PackageDetailPage({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
                   <h3 className="text-xl font-bold mb-4 text-green-600">
-                    ✓ What's Included
+                    ✓ What&apos;s Included
                   </h3>
                   <ul className="space-y-2">
                     {inclusions.map((item: string, idx: number) => (

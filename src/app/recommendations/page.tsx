@@ -218,7 +218,7 @@ export default function RecommendationsPage() {
         {/* Footer Actions */}
         <div className="mt-12 text-center bg-white rounded-lg shadow-md p-8">
           <h3 className="text-xl font-bold text-gray-900 mb-4">
-            Not quite what you're looking for?
+            Not quite what you&apos;re looking for?
           </h3>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

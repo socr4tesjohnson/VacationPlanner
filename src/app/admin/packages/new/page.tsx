@@ -884,7 +884,7 @@ export default function NewPackagePage() {
                 {/* Adjustment Prompt */}
                 <div className="bg-gray-50 rounded-lg p-4">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Want to adjust the posts? Describe what you'd like changed:
+                    Want to adjust the posts? Describe what you&apos;d like changed:
                   </label>
                   <textarea
                     value={adjustmentPrompt}

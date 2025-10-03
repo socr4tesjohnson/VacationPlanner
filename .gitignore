@@ -47,3 +47,5 @@ prisma/migrations/
 /RDP
 
 /src/generated/prisma
+
+.vercel

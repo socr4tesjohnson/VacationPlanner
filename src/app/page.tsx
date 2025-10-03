@@ -181,7 +181,7 @@ export default async function Home() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-900">Personalized Service</h3>
               <p className="text-gray-700 leading-relaxed">
-                Customized itineraries tailored to your family's needs
+                Customized itineraries tailored to your family&apos;s needs
               </p>
             </div>
           </div>

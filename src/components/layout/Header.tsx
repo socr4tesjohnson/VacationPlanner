@@ -20,11 +20,6 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
-  // Don't show header on login page or admin pages (admin has its own header)
-  if (pathname === "/login" || pathname?.startsWith("/admin")) {
-    return null;
-  }
-
   // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -63,6 +58,11 @@ export default function Header() {
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
+
+  // Don't show header on login page or admin pages (admin has its own header)
+  if (pathname === "/login" || pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm backdrop-blur-lg bg-white/95">
