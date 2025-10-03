@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -26,7 +26,7 @@ interface PackageDetails {
   images: { url: string; alt: string }[];
 }
 
-export default function RecommendationsPage() {
+function RecommendationsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
@@ -237,5 +237,22 @@ export default function RecommendationsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function RecommendationsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col items-center justify-center py-20">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mb-4"></div>
+            <p className="text-gray-600">Loading your personalized recommendations...</p>
+          </div>
+        </div>
+      </div>
+    }>
+      <RecommendationsContent />
+    </Suspense>
   );
 }
