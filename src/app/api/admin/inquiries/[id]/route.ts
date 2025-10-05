@@ -18,9 +18,11 @@ async function handleGET(
     }
 
     // Convert Decimal fields to numbers for JSON serialization
-    const quotedAmount = inquiry.quotedAmount ? Number(inquiry.quotedAmount) : null;
-    const commissionRate = inquiry.commissionRate ? Number(inquiry.commissionRate) : null;
-    const commissionAmount = inquiry.commissionAmount ? Number(inquiry.commissionAmount) : null;
+    // Using type assertion to handle optional fields that may not be in older Prisma client
+    const inquiryData: any = inquiry;
+    const quotedAmount = inquiryData.quotedAmount ? Number(inquiryData.quotedAmount) : null;
+    const commissionRate = inquiryData.commissionRate ? Number(inquiryData.commissionRate) : null;
+    const commissionAmount = inquiryData.commissionAmount ? Number(inquiryData.commissionAmount) : null;
 
     return NextResponse.json({
       success: true,
