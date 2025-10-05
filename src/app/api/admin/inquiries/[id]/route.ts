@@ -20,9 +20,15 @@ async function handleGET(
     // Convert Decimal fields to numbers for JSON serialization
     // Using type assertion to handle optional fields that may not be in older Prisma client
     const inquiryData: any = inquiry;
-    const quotedAmount = inquiryData.quotedAmount ? Number(inquiryData.quotedAmount) : null;
-    const commissionRate = inquiryData.commissionRate ? Number(inquiryData.commissionRate) : null;
-    const commissionAmount = inquiryData.commissionAmount ? Number(inquiryData.commissionAmount) : null;
+    const quotedAmount = inquiryData.quotedAmount
+      ? Number(inquiryData.quotedAmount)
+      : null;
+    const commissionRate = inquiryData.commissionRate
+      ? Number(inquiryData.commissionRate)
+      : null;
+    const commissionAmount = inquiryData.commissionAmount
+      ? Number(inquiryData.commissionAmount)
+      : null;
 
     return NextResponse.json({
       success: true,
@@ -90,13 +96,26 @@ async function handlePATCH(
       data: updateData,
     });
 
+    // Convert Decimal fields to numbers for JSON serialization
+    // Using type assertion to handle optional fields that may not be in older Prisma client
+    const inquiryData: any = inquiry;
+    const quotedAmount = inquiryData.quotedAmount
+      ? Number(inquiryData.quotedAmount)
+      : null;
+    const commissionRate = inquiryData.commissionRate
+      ? Number(inquiryData.commissionRate)
+      : null;
+    const commissionAmount = inquiryData.commissionAmount
+      ? Number(inquiryData.commissionAmount)
+      : null;
+
     return NextResponse.json({
       success: true,
       inquiry: {
         ...inquiry,
-        quotedAmount: inquiry.quotedAmount?.toNumber() ?? null,
-        commissionRate: inquiry.commissionRate?.toNumber() ?? null,
-        commissionAmount: inquiry.commissionAmount?.toNumber() ?? null,
+        quotedAmount,
+        commissionRate,
+        commissionAmount,
       },
     });
   } catch (error) {

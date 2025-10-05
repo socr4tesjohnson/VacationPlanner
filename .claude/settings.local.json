@@ -23,7 +23,14 @@
       "Bash(npm run format:check:*)",
       "Bash(npm run:*)",
       "Bash(curl:*)",
-      "Bash(set CI=true)"
+      "Bash(set CI=true)",
+      "Bash(unset:*)",
+      "WebFetch(domain:vacation-planner.vercel.app)",
+      "mcp__vercel__web_fetch_vercel_url",
+      "mcp__vercel__list_teams",
+      "mcp__vercel__list_deployments",
+      "mcp__vercel__get_deployment",
+      "mcp__vercel__get_deployment_build_logs"
     ],
     "deny": [],
     "ask": []
