@@ -233,7 +233,9 @@ export default function TestimonialsClient() {
                     content={testimonial.content}
                     travelDate={testimonial.travelDate}
                     packageName={testimonial.package?.title || null}
-                    packageDestination={testimonial.package?.destination || null}
+                    packageDestination={
+                      testimonial.package?.destination || null
+                    }
                     imageUrl={testimonial.imageUrl}
                     featured={testimonial.featured}
                   />
@@ -312,8 +314,7 @@ export default function TestimonialsClient() {
 
               {/* Results summary */}
               <div className="text-center mt-8 text-gray-600">
-                Showing {testimonials.length} of {pagination.total}{" "}
-                testimonials
+                Showing {testimonials.length} of {pagination.total} testimonials
               </div>
             </>
           )}

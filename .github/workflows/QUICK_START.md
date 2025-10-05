@@ -70,10 +70,12 @@ npx prisma migrate dev --name switch_to_postgresql
 Go to: `Vercel Dashboard → Your Project → Settings → Environment Variables`
 
 Add for **Production**:
+
 - `DATABASE_URL` = your production PostgreSQL URL
 - `ANTHROPIC_API_KEY` = your Claude API key
 
 Add for **Preview**:
+
 - `DATABASE_URL` = your preview PostgreSQL URL
 - `ANTHROPIC_API_KEY` = your Claude API key
 
@@ -97,12 +99,14 @@ git push origin test-ci
 ## What Happens Next
 
 When you create a PR:
+
 1. Tests run automatically
 2. Build is created
 3. Preview deployment to Vercel
 4. PR gets a comment with preview URL
 
 When you merge to master:
+
 1. Tests run
 2. Database migrations execute
 3. Production deployment to Vercel
@@ -110,13 +114,13 @@ When you merge to master:
 
 ## Troubleshooting
 
-| Issue | Solution |
-|-------|----------|
-| "Vercel token not set" | Add VERCEL_TOKEN to GitHub secrets |
-| "Project not found" | Verify VERCEL_ORG_ID and VERCEL_PROJECT_ID |
-| Database migration fails | Check DATABASE_URL_PRODUCTION is correct |
-| Build fails | Check all environment variables are set |
-| No PR comment | Enable write permissions: Settings → Actions → General → Workflow permissions → "Read and write" |
+| Issue                    | Solution                                                                                         |
+| ------------------------ | ------------------------------------------------------------------------------------------------ |
+| "Vercel token not set"   | Add VERCEL_TOKEN to GitHub secrets                                                               |
+| "Project not found"      | Verify VERCEL_ORG_ID and VERCEL_PROJECT_ID                                                       |
+| Database migration fails | Check DATABASE_URL_PRODUCTION is correct                                                         |
+| Build fails              | Check all environment variables are set                                                          |
+| No PR comment            | Enable write permissions: Settings → Actions → General → Workflow permissions → "Read and write" |
 
 ## Database Options
 
@@ -197,6 +201,7 @@ gh run watch
 ## Success Indicators
 
 You're ready when:
+
 - ✅ PR creates preview deployment automatically
 - ✅ PR gets comment with preview URL
 - ✅ Merge to master deploys to production

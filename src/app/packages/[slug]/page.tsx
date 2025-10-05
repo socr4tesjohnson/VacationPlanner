@@ -70,7 +70,10 @@ export default async function PackageDetailPage({
                     const meals = JSON.parse(day.meals);
 
                     return (
-                      <div key={day.id} className="border-l-4 border-blue-600 pl-4">
+                      <div
+                        key={day.id}
+                        className="border-l-4 border-blue-600 pl-4"
+                      >
                         <h3 className="text-xl font-semibold mb-2">
                           Day {day.dayNumber}: {day.title}
                         </h3>
@@ -81,9 +84,11 @@ export default async function PackageDetailPage({
                               Activities:
                             </p>
                             <ul className="list-disc list-inside text-gray-700 space-y-1">
-                              {activities.map((activity: string, idx: number) => (
-                                <li key={idx}>{activity}</li>
-                              ))}
+                              {activities.map(
+                                (activity: string, idx: number) => (
+                                  <li key={idx}>{activity}</li>
+                                )
+                              )}
                             </ul>
                           </div>
                         )}
@@ -160,7 +165,9 @@ export default async function PackageDetailPage({
                 {pkg.deposit && (
                   <div className="flex justify-between py-2 border-b">
                     <span className="text-gray-600">Deposit</span>
-                    <span className="font-semibold">${pkg.deposit.toFixed(0)}</span>
+                    <span className="font-semibold">
+                      ${pkg.deposit.toFixed(0)}
+                    </span>
                   </div>
                 )}
               </div>

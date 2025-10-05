@@ -9,7 +9,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Laura Coleman Travel - Your Personal Disney & Universal Expert",
-  description: "Stress-free Disney, Universal, and cruise vacation planning with Laura Coleman, your dedicated travel advisor with Whitney World Travel. Expert service from Fayetteville, AR.",
+  description:
+    "Stress-free Disney, Universal, and cruise vacation planning with Laura Coleman, your dedicated travel advisor with Whitney World Travel. Expert service from Fayetteville, AR.",
 };
 
 export default function RootLayout({

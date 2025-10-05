@@ -51,14 +51,17 @@ Add the following secrets:
 Navigate to: Vercel Dashboard > Your Project > Settings > Environment Variables
 
 Add for Production:
+
 - [ ] `DATABASE_URL` - Production PostgreSQL URL
 - [ ] `ANTHROPIC_API_KEY` - Your Claude API key
 
 Add for Preview:
+
 - [ ] `DATABASE_URL` - Preview PostgreSQL URL
 - [ ] `ANTHROPIC_API_KEY` - Your Claude API key (same as production)
 
 Add for Development (optional):
+
 - [ ] `DATABASE_URL` - Local development database
 - [ ] `ANTHROPIC_API_KEY` - Your Claude API key
 
@@ -67,11 +70,13 @@ Add for Development (optional):
 Navigate to: GitHub Repo > Settings > Environments
 
 Create "Preview" environment:
+
 - [ ] Environment created
 - [ ] Secrets added (if using environment-specific secrets)
 - [ ] Protection rules configured (optional)
 
 Create "Production" environment:
+
 - [ ] Environment created
 - [ ] Secrets added (if using environment-specific secrets)
 - [ ] Required reviewers added (recommended)

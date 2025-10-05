@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-import crypto from 'crypto';
+import { PrismaClient } from "@prisma/client";
+import crypto from "crypto";
 
 const prisma = new PrismaClient();
 
@@ -7,11 +7,11 @@ async function createTestSession() {
   try {
     // Find admin user
     const adminUser = await prisma.user.findUnique({
-      where: { email: 'admin@vacationplanner.com' }
+      where: { email: "admin@vacationplanner.com" },
     });
 
     if (!adminUser) {
-      console.error('Admin user not found');
+      console.error("Admin user not found");
       return;
     }
 
@@ -25,20 +25,19 @@ async function createTestSession() {
       data: {
         token,
         userId: adminUser.id,
-        expiresAt
-      }
+        expiresAt,
+      },
     });
 
-    console.log('Session created successfully!');
-    console.log('Token:', token);
-    console.log('Expires:', expiresAt);
-    console.log('\nUse this in your requests:');
+    console.log("Session created successfully!");
+    console.log("Token:", token);
+    console.log("Expires:", expiresAt);
+    console.log("\nUse this in your requests:");
     console.log(`Cookie: session_token=${token}`);
     console.log(`OR`);
     console.log(`Authorization: Bearer ${token}`);
-
   } catch (error) {
-    console.error('Error creating session:', error.message);
+    console.error("Error creating session:", error.message);
   } finally {
     await prisma.$disconnect();
   }

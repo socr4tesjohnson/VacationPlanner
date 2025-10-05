@@ -17,10 +17,7 @@ export async function GET(
     });
 
     if (!packageData) {
-      return NextResponse.json(
-        { error: "Package not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Package not found" }, { status: 404 });
     }
 
     return NextResponse.json({

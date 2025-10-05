@@ -81,11 +81,13 @@ export default function AdminDashboard() {
   };
 
   // Calculate currently traveling customers
-  const currentlyTraveling = bookings.filter(booking => {
+  const currentlyTraveling = bookings.filter((booking) => {
     const now = new Date();
     const departure = new Date(booking.departureDate);
     const returnDate = new Date(booking.returnDate);
-    return booking.status === 'CONFIRMED' && departure <= now && now <= returnDate;
+    return (
+      booking.status === "CONFIRMED" && departure <= now && now <= returnDate
+    );
   });
 
   const formatDate = (dateString: string | null) => {
@@ -132,14 +134,20 @@ export default function AdminDashboard() {
 
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Client Inquiries Dashboard</h1>
-          <p className="text-gray-600 mt-2">Manage and track all vacation planning inquiries</p>
+          <h1 className="text-3xl font-bold text-gray-900">
+            Client Inquiries Dashboard
+          </h1>
+          <p className="text-gray-600 mt-2">
+            Manage and track all vacation planning inquiries
+          </p>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           <div className="bg-white rounded-lg shadow p-4 sm:p-6">
-            <div className="text-xs sm:text-sm text-gray-600 mb-1">Total Inquiries</div>
+            <div className="text-xs sm:text-sm text-gray-600 mb-1">
+              Total Inquiries
+            </div>
             <div className="text-2xl sm:text-3xl font-bold text-gray-900">
               {inquiries.length}
             </div>
@@ -151,7 +159,9 @@ export default function AdminDashboard() {
             </div>
           </div>
           <div className="bg-white rounded-lg shadow p-4 sm:p-6">
-            <div className="text-xs sm:text-sm text-gray-600 mb-1">Contacted</div>
+            <div className="text-xs sm:text-sm text-gray-600 mb-1">
+              Contacted
+            </div>
             <div className="text-2xl sm:text-3xl font-bold text-yellow-600">
               {inquiries.filter((i) => i.status === "contacted").length}
             </div>
@@ -180,7 +190,10 @@ export default function AdminDashboard() {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {currentlyTraveling.map((booking) => (
-                <div key={booking.id} className="bg-white rounded-lg p-4 shadow">
+                <div
+                  key={booking.id}
+                  className="bg-white rounded-lg p-4 shadow"
+                >
                   <div className="font-semibold text-gray-900">
                     {booking.customer.firstName} {booking.customer.lastName}
                   </div>
@@ -227,7 +240,8 @@ export default function AdminDashboard() {
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
-              Contacted ({inquiries.filter((i) => i.status === "contacted").length})
+              Contacted (
+              {inquiries.filter((i) => i.status === "contacted").length})
             </button>
             <button
               onClick={() => setFilter("booked")}
@@ -289,7 +303,8 @@ export default function AdminDashboard() {
                           {inquiry.firstName} {inquiry.lastName}
                         </div>
                         <div className="text-xs sm:text-sm text-gray-500">
-                          {inquiry.adults} adult(s), {inquiry.children} child(ren)
+                          {inquiry.adults} adult(s), {inquiry.children}{" "}
+                          child(ren)
                         </div>
                         {/* Show on mobile only */}
                         <div className="md:hidden text-xs text-gray-500 mt-1">
@@ -306,7 +321,8 @@ export default function AdminDashboard() {
                       </td>
                       <td className="hidden lg:table-cell px-6 py-4">
                         <div className="text-sm text-gray-900">
-                          {formatDate(inquiry.startDate)} - {formatDate(inquiry.endDate)}
+                          {formatDate(inquiry.startDate)} -{" "}
+                          {formatDate(inquiry.endDate)}
                         </div>
                         {inquiry.packageTitle && (
                           <div className="text-sm text-gray-500 truncate max-w-xs">

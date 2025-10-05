@@ -13,7 +13,8 @@ async function handlePOST(request: NextRequest) {
 
     const response = await fetch(adobeStockUrl, {
       headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
       },
     });
 
@@ -92,7 +93,10 @@ If you can't find clear image URLs, return an empty array [].`;
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : "Failed to scan Disney images",
+        error:
+          error instanceof Error
+            ? error.message
+            : "Failed to scan Disney images",
       },
       { status: 500 }
     );

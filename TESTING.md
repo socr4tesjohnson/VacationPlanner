@@ -38,6 +38,7 @@ __tests__/
 **Purpose:** Test individual functions in isolation
 
 **What's Covered:**
+
 - `comparePassword()` - Password comparison with bcrypt
 - `hashPassword()` - Password hashing
 - `generateSessionToken()` - UUID token generation
@@ -55,6 +56,7 @@ __tests__/
 **Purpose:** Test HTTP endpoints for correctness
 
 **Login Route (`/api/auth/login`):**
+
 - ✅ Successful login with valid credentials
 - ✅ Email normalization (lowercase)
 - ✅ Invalid credentials handling (401)
@@ -66,6 +68,7 @@ __tests__/
 - ✅ Last login timestamp update
 
 **Logout Route (`/api/auth/logout`):**
+
 - ✅ Successful logout with token
 - ✅ Cookie clearing
 - ✅ Missing token handling (401)
@@ -74,6 +77,7 @@ __tests__/
 - ✅ Database error handling
 
 **Me Route (`/api/auth/me`):**
+
 - ✅ Authenticated user retrieval
 - ✅ Permission information (admin/manager/agent)
 - ✅ Unauthenticated request rejection (401)
@@ -89,6 +93,7 @@ __tests__/
 **Purpose:** Test UI components and user interactions
 
 **Login Page:**
+
 - ✅ Form rendering (email, password, submit button)
 - ✅ Email validation (format, required)
 - ✅ Password validation (length, required)
@@ -120,6 +125,7 @@ __tests__/
 ### Configuration Files
 
 **`jest.config.js`:**
+
 - Next.js 14+ App Router support
 - TypeScript/TSX transformation
 - Path aliases (`@/*`)
@@ -127,6 +133,7 @@ __tests__/
 - jsdom environment for React testing
 
 **`jest.setup.js`:**
+
 - Testing Library matchers
 - Next.js router mocking
 - Environment variable setup
@@ -135,11 +142,13 @@ __tests__/
 ### Mock Utilities
 
 **Prisma Mock (`__tests__/utils/prisma-mock.ts`):**
+
 - Deep mock of Prisma Client
 - Auto-reset between tests
 - Full type safety
 
 **Test Data Factory (`__tests__/utils/test-data-factory.ts`):**
+
 - `createTestUser()` - Generate test users
 - `createTestAdmin()` - Generate admin users
 - `createTestManager()` - Generate manager users
@@ -182,7 +191,7 @@ Coverage:    >70% across all metrics
 ### Global Thresholds
 
 | Metric     | Threshold |
-|-----------|-----------|
+| ---------- | --------- |
 | Branches   | 70%       |
 | Functions  | 70%       |
 | Lines      | 70%       |
@@ -190,13 +199,13 @@ Coverage:    >70% across all metrics
 
 ### Priority Areas
 
-| Area               | Target Coverage |
-|-------------------|-----------------|
-| Authentication    | >80%            |
-| Authorization     | >80%            |
-| API Routes        | >75%            |
-| Form Validation   | >75%            |
-| Helper Functions  | >70%            |
+| Area             | Target Coverage |
+| ---------------- | --------------- |
+| Authentication   | >80%            |
+| Authorization    | >80%            |
+| API Routes       | >75%            |
+| Form Validation  | >75%            |
+| Helper Functions | >70%            |
 
 ### View Coverage Report
 
@@ -212,28 +221,30 @@ open coverage/lcov-report/index.html
 ### 1. AAA Pattern (Arrange, Act, Assert)
 
 ```typescript
-it('should validate email format', () => {
+it("should validate email format", () => {
   // Arrange
-  const email = 'test@example.com'
+  const email = "test@example.com";
 
   // Act
-  const isValid = validateEmail(email)
+  const isValid = validateEmail(email);
 
   // Assert
-  expect(isValid).toBe(true)
-})
+  expect(isValid).toBe(true);
+});
 ```
 
 ### 2. Descriptive Test Names
 
 ✅ **Good:**
+
 ```typescript
-it('should return 401 when user provides invalid credentials', () => {})
+it("should return 401 when user provides invalid credentials", () => {});
 ```
 
 ❌ **Bad:**
+
 ```typescript
-it('login test', () => {})
+it("login test", () => {});
 ```
 
 ### 3. Test Independence
@@ -242,8 +253,8 @@ Each test should run independently. Use `beforeEach` to reset state:
 
 ```typescript
 beforeEach(() => {
-  jest.clearAllMocks()
-})
+  jest.clearAllMocks();
+});
 ```
 
 ### 4. Mock External Dependencies
@@ -258,12 +269,12 @@ beforeEach(() => {
 Don't just test happy paths:
 
 ```typescript
-describe('login', () => {
-  it('should succeed with valid credentials', () => {})
-  it('should fail with invalid credentials', () => {})
-  it('should handle network errors', () => {})
-  it('should handle malformed responses', () => {})
-})
+describe("login", () => {
+  it("should succeed with valid credentials", () => {});
+  it("should fail with invalid credentials", () => {});
+  it("should handle network errors", () => {});
+  it("should handle malformed responses", () => {});
+});
 ```
 
 ## 🔄 CI/CD Integration
@@ -285,7 +296,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: "18"
 
       - name: Install dependencies
         run: npm ci
@@ -321,19 +332,20 @@ npm run test:ci
 
 ### Coverage by Module
 
-| Module                | Coverage |
-|-----------------------|----------|
-| `lib/auth.ts`         | ~95%     |
-| `/api/auth/login`     | ~90%     |
-| `/api/auth/logout`    | ~90%     |
-| `/api/auth/me`        | ~90%     |
-| `app/login/page.tsx`  | ~85%     |
+| Module               | Coverage |
+| -------------------- | -------- |
+| `lib/auth.ts`        | ~95%     |
+| `/api/auth/login`    | ~90%     |
+| `/api/auth/logout`   | ~90%     |
+| `/api/auth/me`       | ~90%     |
+| `app/login/page.tsx` | ~85%     |
 
 ## 🐛 Troubleshooting
 
 ### Common Issues
 
 #### 1. Module not found errors
+
 ```bash
 # Check path aliases in jest.config.js
 moduleNameMapper: {
@@ -342,17 +354,19 @@ moduleNameMapper: {
 ```
 
 #### 2. Prisma mock not working
+
 ```typescript
 // Import mock BEFORE the module
-import { prismaMock } from '../utils/prisma-mock'
-jest.mock('@/lib/db', () => ({ prisma: prismaMock }))
-import { yourFunction } from '@/lib/auth'
+import { prismaMock } from "../utils/prisma-mock";
+jest.mock("@/lib/db", () => ({ prisma: prismaMock }));
+import { yourFunction } from "@/lib/auth";
 ```
 
 #### 3. Tests timeout
+
 ```typescript
 // Increase timeout for slow tests
-jest.setTimeout(10000)
+jest.setTimeout(10000);
 ```
 
 ## 📝 Adding New Tests
@@ -372,29 +386,29 @@ jest.setTimeout(10000)
 
 ```typescript
 // Mock dependencies first
-import { prismaMock } from '../utils/prisma-mock'
-jest.mock('@/lib/db', () => ({ prisma: prismaMock }))
+import { prismaMock } from "../utils/prisma-mock";
+jest.mock("@/lib/db", () => ({ prisma: prismaMock }));
 
 // Import module under test
-import { yourFunction } from '@/lib/your-module'
+import { yourFunction } from "@/lib/your-module";
 
-describe('yourFunction', () => {
+describe("yourFunction", () => {
   beforeEach(() => {
-    jest.clearAllMocks()
-  })
+    jest.clearAllMocks();
+  });
 
-  describe('Success Cases', () => {
-    it('should handle valid input', () => {
+  describe("Success Cases", () => {
+    it("should handle valid input", () => {
       // Test implementation
-    })
-  })
+    });
+  });
 
-  describe('Error Cases', () => {
-    it('should handle invalid input', () => {
+  describe("Error Cases", () => {
+    it("should handle invalid input", () => {
       // Test implementation
-    })
-  })
-})
+    });
+  });
+});
 ```
 
 ## 🎯 Next Steps

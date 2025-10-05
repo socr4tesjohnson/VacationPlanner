@@ -57,10 +57,7 @@ async function handleGET(
     });
 
     if (!booking) {
-      return NextResponse.json(
-        { error: "Booking not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Booking not found" }, { status: 404 });
     }
 
     return NextResponse.json({
@@ -95,10 +92,7 @@ async function handlePATCH(
     });
 
     if (!existingBooking) {
-      return NextResponse.json(
-        { error: "Booking not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Booking not found" }, { status: 404 });
     }
 
     // Validate request body with Zod
@@ -149,7 +143,10 @@ async function handlePATCH(
 
     // Calculate new balance due if pricing changes
     let balanceDue: Prisma.Decimal | undefined;
-    if (validatedData.totalPrice !== undefined || validatedData.depositPaid !== undefined) {
+    if (
+      validatedData.totalPrice !== undefined ||
+      validatedData.depositPaid !== undefined
+    ) {
       const totalPrice =
         validatedData.totalPrice !== undefined
           ? validatedData.totalPrice
@@ -281,10 +278,7 @@ async function handleDELETE(
     });
 
     if (!existingBooking) {
-      return NextResponse.json(
-        { error: "Booking not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Booking not found" }, { status: 404 });
     }
 
     if (hardDelete) {

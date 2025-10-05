@@ -29,6 +29,7 @@ You must configure the following secrets in your GitHub repository settings (Set
 2. **VERCEL_ORG_ID** (Required)
    - Your Vercel organization/team ID
    - How to get:
+
      ```bash
      # Install Vercel CLI locally
      npm i -g vercel
@@ -139,6 +140,7 @@ Your current setup uses SQLite, which **will not work on Vercel** (serverless en
    - Railway: https://railway.app/
 
 2. **Update Prisma Schema**:
+
    ```prisma
    datasource db {
      provider = "postgresql"  // Change from "sqlite"
@@ -147,6 +149,7 @@ Your current setup uses SQLite, which **will not work on Vercel** (serverless en
    ```
 
 3. **Create and Run Migrations**:
+
    ```bash
    # Create new migration for PostgreSQL
    npx prisma migrate dev --name init_postgres
@@ -275,6 +278,7 @@ git push origin master
 ### Issue: Database migrations fail
 
 **Solution**:
+
 - Check DATABASE_URL_PRODUCTION is correct
 - Ensure the database is accessible from Vercel
 - Verify PostgreSQL is being used (not SQLite)
@@ -283,6 +287,7 @@ git push origin master
 ### Issue: Build fails with Prisma error
 
 **Solution**:
+
 - Run `npx prisma generate` before building
 - Ensure DATABASE_URL environment variable is set
 - Check Prisma schema syntax is valid
@@ -290,6 +295,7 @@ git push origin master
 ### Issue: Tests fail in CI but pass locally
 
 **Solution**:
+
 - Check environment variables are set in GitHub Secrets
 - Review test.db path and DATABASE_URL for tests
 - Ensure test database is properly isolated
@@ -298,6 +304,7 @@ git push origin master
 ### Issue: Preview deployment but no comment on PR
 
 **Solution**:
+
 - Ensure GitHub Actions has write permissions: Settings > Actions > General > Workflow permissions > "Read and write permissions"
 - Check the `actions/github-script@v7` step logs for errors
 
@@ -305,18 +312,19 @@ git push origin master
 
 ### Required in GitHub Secrets
 
-| Secret Name | Used In | Description |
-|------------|---------|-------------|
-| VERCEL_TOKEN | All deployments | Vercel authentication token |
-| VERCEL_ORG_ID | All deployments | Vercel organization ID |
-| VERCEL_PROJECT_ID | All deployments | Vercel project ID |
-| DATABASE_URL | Preview | PostgreSQL URL for preview |
-| DATABASE_URL_PRODUCTION | Production | PostgreSQL URL for production |
-| ANTHROPIC_API_KEY | All | Claude API key for AI features |
+| Secret Name             | Used In         | Description                    |
+| ----------------------- | --------------- | ------------------------------ |
+| VERCEL_TOKEN            | All deployments | Vercel authentication token    |
+| VERCEL_ORG_ID           | All deployments | Vercel organization ID         |
+| VERCEL_PROJECT_ID       | All deployments | Vercel project ID              |
+| DATABASE_URL            | Preview         | PostgreSQL URL for preview     |
+| DATABASE_URL_PRODUCTION | Production      | PostgreSQL URL for production  |
+| ANTHROPIC_API_KEY       | All             | Claude API key for AI features |
 
 ### Also Configure in Vercel Dashboard
 
 Add these same environment variables in Vercel project settings for runtime:
+
 - `DATABASE_URL` (different values for Preview/Production)
 - `ANTHROPIC_API_KEY`
 
@@ -340,6 +348,7 @@ Add these same environment variables in Vercel project settings for runtime:
 ## Support
 
 For issues with:
+
 - **GitHub Actions**: Check the Actions tab logs, review workflow YAML syntax
 - **Vercel Deployment**: Check Vercel dashboard deployment logs
 - **Database Issues**: Review Prisma logs and database connection strings

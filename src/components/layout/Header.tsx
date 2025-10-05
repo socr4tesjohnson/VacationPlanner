@@ -23,7 +23,10 @@ export default function Header() {
   // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node)
+      ) {
         setIsMobileMenuOpen(false);
       }
     };
@@ -69,13 +72,29 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Link href="/" className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors flex items-center gap-2">
-              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <Link
+              href="/"
+              className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors flex items-center gap-2"
+            >
+              <svg
+                className="w-8 h-8 text-blue-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
               <div className="flex flex-col leading-tight">
                 <span className="text-lg sm:text-xl">Laura Coleman Travel</span>
-                <span className="text-xs text-gray-500 font-normal hidden sm:block">with Whitney World Travel</span>
+                <span className="text-xs text-gray-500 font-normal hidden sm:block">
+                  with Whitney World Travel
+                </span>
               </div>
             </Link>
           </div>
@@ -157,12 +176,34 @@ export default function Header() {
             aria-label="Toggle navigation menu"
           >
             {isMobileMenuOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             )}
           </button>

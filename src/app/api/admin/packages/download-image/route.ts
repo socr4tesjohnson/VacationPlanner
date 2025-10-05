@@ -29,12 +29,7 @@ async function handlePOST(request: NextRequest) {
     const finalFilename = filename || `disney-${timestamp}${ext}`;
 
     // Ensure upload directory exists
-    const uploadDir = path.join(
-      process.cwd(),
-      "public",
-      "uploads",
-      "packages"
-    );
+    const uploadDir = path.join(process.cwd(), "public", "uploads", "packages");
     try {
       await mkdir(uploadDir, { recursive: true });
     } catch (err) {

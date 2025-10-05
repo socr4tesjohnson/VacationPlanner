@@ -188,10 +188,7 @@ async function handlePOST(request: NextRequest) {
     // Validate package exists
     const packageExists = await validatePackageExists(validatedData.packageId);
     if (!packageExists) {
-      return NextResponse.json(
-        { error: "Package not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Package not found" }, { status: 404 });
     }
 
     // Validate dates

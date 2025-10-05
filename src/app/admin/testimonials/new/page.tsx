@@ -108,14 +108,18 @@ export default function NewTestimonialPage() {
 
       router.push("/admin/testimonials");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to create testimonial");
+      setError(
+        err instanceof Error ? err.message : "Failed to create testimonial"
+      );
     } finally {
       setLoading(false);
     }
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value, type } = e.target;
     if (type === "checkbox") {
@@ -160,7 +164,10 @@ export default function NewTestimonialPage() {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow p-6 space-y-6">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white rounded-lg shadow p-6 space-y-6"
+        >
           {/* Customer Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -307,7 +314,10 @@ export default function NewTestimonialPage() {
                 onChange={handleChange}
                 className="w-4 h-4 text-cyan-600 border-gray-300 rounded focus:ring-cyan-500"
               />
-              <label htmlFor="featured" className="ml-2 text-sm font-medium text-gray-700">
+              <label
+                htmlFor="featured"
+                className="ml-2 text-sm font-medium text-gray-700"
+              >
                 Featured Testimonial
               </label>
             </div>
@@ -321,7 +331,10 @@ export default function NewTestimonialPage() {
                 onChange={handleChange}
                 className="w-4 h-4 text-cyan-600 border-gray-300 rounded focus:ring-cyan-500"
               />
-              <label htmlFor="approved" className="ml-2 text-sm font-medium text-gray-700">
+              <label
+                htmlFor="approved"
+                className="ml-2 text-sm font-medium text-gray-700"
+              >
                 Approve Immediately
               </label>
             </div>

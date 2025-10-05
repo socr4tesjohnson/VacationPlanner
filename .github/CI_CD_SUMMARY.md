@@ -53,6 +53,7 @@ A production-ready GitHub Actions CI/CD pipeline has been created for deploying 
 ### Automated CI/CD Pipeline (`deploy.yml`)
 
 #### Triggers
+
 - **Push to master/main**: Production deployment
 - **Pull Requests**: Preview deployment with PR comment
 
@@ -94,6 +95,7 @@ A production-ready GitHub Actions CI/CD pipeline has been created for deploying 
 ### Manual Deployment Pipeline (`manual-deploy.yml`)
 
 #### Features
+
 - GitHub Actions UI trigger (workflow_dispatch)
 - Choose environment: preview or production
 - Optional test skipping (not recommended for production)
@@ -102,6 +104,7 @@ A production-ready GitHub Actions CI/CD pipeline has been created for deploying 
 - Deployment notifications in summary
 
 #### Use Cases
+
 - Emergency hotfixes
 - Deploying feature branches for testing
 - Rolling back to specific commits
@@ -113,24 +116,26 @@ A production-ready GitHub Actions CI/CD pipeline has been created for deploying 
 
 Add these secrets in: `Settings > Secrets and variables > Actions`
 
-| Secret Name | Description | How to Get |
-|------------|-------------|------------|
-| `VERCEL_TOKEN` | Vercel API authentication token | https://vercel.com/account/tokens |
-| `VERCEL_ORG_ID` | Vercel organization ID | Run `vercel link`, check `.vercel/project.json` |
-| `VERCEL_PROJECT_ID` | Vercel project ID | Run `vercel link`, check `.vercel/project.json` |
-| `DATABASE_URL` | PostgreSQL URL for preview | Your database provider |
-| `DATABASE_URL_PRODUCTION` | PostgreSQL URL for production | Your database provider |
-| `ANTHROPIC_API_KEY` | Claude API key for AI features | https://console.anthropic.com/ |
+| Secret Name               | Description                     | How to Get                                      |
+| ------------------------- | ------------------------------- | ----------------------------------------------- |
+| `VERCEL_TOKEN`            | Vercel API authentication token | https://vercel.com/account/tokens               |
+| `VERCEL_ORG_ID`           | Vercel organization ID          | Run `vercel link`, check `.vercel/project.json` |
+| `VERCEL_PROJECT_ID`       | Vercel project ID               | Run `vercel link`, check `.vercel/project.json` |
+| `DATABASE_URL`            | PostgreSQL URL for preview      | Your database provider                          |
+| `DATABASE_URL_PRODUCTION` | PostgreSQL URL for production   | Your database provider                          |
+| `ANTHROPIC_API_KEY`       | Claude API key for AI features  | https://console.anthropic.com/                  |
 
 ### Vercel Environment Variables
 
 Configure in: `Vercel Dashboard > Project > Settings > Environment Variables`
 
 **Production:**
+
 - `DATABASE_URL` = Production PostgreSQL connection string
 - `ANTHROPIC_API_KEY` = Your Claude API key
 
 **Preview:**
+
 - `DATABASE_URL` = Preview PostgreSQL connection string
 - `ANTHROPIC_API_KEY` = Your Claude API key
 
@@ -152,6 +157,7 @@ This allows the workflow to comment on PRs with deployment URLs.
 **Required Change:**
 
 1. Update `prisma/schema.prisma`:
+
    ```prisma
    datasource db {
      provider = "postgresql"  // Change from "sqlite"
@@ -160,6 +166,7 @@ This allows the workflow to comment on PRs with deployment URLs.
    ```
 
 2. Create new migration:
+
    ```bash
    npx prisma migrate dev --name init_postgresql
    ```
@@ -173,6 +180,7 @@ This allows the workflow to comment on PRs with deployment URLs.
 ### Deployment Flow
 
 #### Pull Request Flow
+
 ```
 PR Created
   ↓
@@ -186,6 +194,7 @@ Comment PR with Preview URL
 ```
 
 #### Production Flow
+
 ```
 Push to Master/Main
   ↓
@@ -218,6 +227,7 @@ Health Check Verification
 ## Monitoring & Observability
 
 ### Built-in Features
+
 - Test coverage tracking (uploaded as artifacts)
 - Build success/failure notifications
 - Deployment URLs in workflow summaries
@@ -225,6 +235,7 @@ Health Check Verification
 - GitHub Actions workflow status badges
 
 ### Recommended Additions
+
 - **Error Tracking**: Sentry, Rollbar, or Bugsnag
 - **Performance Monitoring**: Vercel Analytics or New Relic
 - **Uptime Monitoring**: UptimeRobot or Pingdom
@@ -233,6 +244,7 @@ Health Check Verification
 ## Quick Start
 
 1. **Link Vercel Project:**
+
    ```bash
    npm i -g vercel
    vercel login
@@ -262,6 +274,7 @@ Health Check Verification
 ## Workflow Commands
 
 ### GitHub CLI (if installed)
+
 ```bash
 # List all workflows
 gh workflow list
@@ -283,6 +296,7 @@ gh secret set SECRET_NAME
 ```
 
 ### Vercel CLI
+
 ```bash
 # Deploy preview manually
 vercel
@@ -299,24 +313,26 @@ vercel project ls
 
 ## Troubleshooting Quick Reference
 
-| Issue | Solution |
-|-------|----------|
-| Tests failing in CI | Check environment variables, verify DATABASE_URL for tests |
-| No PR comment | Enable write permissions in GitHub Actions settings |
-| Vercel deployment fails | Verify VERCEL_TOKEN, ORG_ID, and PROJECT_ID |
-| Database migration fails | Check DATABASE_URL_PRODUCTION, ensure PostgreSQL is used |
-| Build fails | Verify all environment variables are set in GitHub Secrets |
-| Health check fails | Check production URL is accessible, verify deployment succeeded |
+| Issue                    | Solution                                                        |
+| ------------------------ | --------------------------------------------------------------- |
+| Tests failing in CI      | Check environment variables, verify DATABASE_URL for tests      |
+| No PR comment            | Enable write permissions in GitHub Actions settings             |
+| Vercel deployment fails  | Verify VERCEL_TOKEN, ORG_ID, and PROJECT_ID                     |
+| Database migration fails | Check DATABASE_URL_PRODUCTION, ensure PostgreSQL is used        |
+| Build fails              | Verify all environment variables are set in GitHub Secrets      |
+| Health check fails       | Check production URL is accessible, verify deployment succeeded |
 
 ## Performance Optimizations
 
 ### Current Optimizations
+
 - Dependency caching via setup-node
 - Parallel job execution where possible
 - Fail-fast on test failures
 - Artifact cleanup with retention policies
 
 ### Potential Improvements
+
 - Use `npm ci --prefer-offline` for faster installs
 - Implement build cache for Next.js
 - Add matrix strategy for multi-node testing
@@ -326,6 +342,7 @@ vercel project ls
 ## Rollback Strategy
 
 ### Manual Rollback via Vercel
+
 ```bash
 # List recent deployments
 vercel ls
@@ -335,6 +352,7 @@ vercel rollback [deployment-url]
 ```
 
 ### Manual Rollback via GitHub Actions
+
 1. Go to Actions > Manual Deployment
 2. Click "Run workflow"
 3. Enter previous commit SHA or tag
@@ -342,6 +360,7 @@ vercel rollback [deployment-url]
 5. Run deployment
 
 ### Automated Rollback (Future Enhancement)
+
 Consider adding automated rollback on failed health checks.
 
 ## Next Steps

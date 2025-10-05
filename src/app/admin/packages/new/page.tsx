@@ -50,8 +50,12 @@ export default function NewPackagePage() {
 
   // Social media posts (Step 4)
   const [createdPackageId, setCreatedPackageId] = useState<number | null>(null);
-  const [socialMediaPosts, setSocialMediaPosts] = useState<SocialMediaPost[]>([]);
-  const [selectedPostIndex, setSelectedPostIndex] = useState<number | null>(null);
+  const [socialMediaPosts, setSocialMediaPosts] = useState<SocialMediaPost[]>(
+    []
+  );
+  const [selectedPostIndex, setSelectedPostIndex] = useState<number | null>(
+    null
+  );
   const [adjustmentPrompt, setAdjustmentPrompt] = useState("");
   const [generatingPosts, setGeneratingPosts] = useState(false);
 
@@ -65,8 +69,10 @@ export default function NewPackagePage() {
   const [category, setCategory] = useState("family");
 
   // Step 2: AI Generated content
-  const [generatedContent, setGeneratedContent] = useState<GeneratedContent | null>(null);
-  const [editableContent, setEditableContent] = useState<GeneratedContent | null>(null);
+  const [generatedContent, setGeneratedContent] =
+    useState<GeneratedContent | null>(null);
+  const [editableContent, setEditableContent] =
+    useState<GeneratedContent | null>(null);
 
   // Step 3: Images
   const [imageFiles, setImageFiles] = useState<File[]>([]);
@@ -107,7 +113,9 @@ export default function NewPackagePage() {
 
   const handleSelectDisneyOffer = (offer: DisneyOffer) => {
     // Auto-fill form with Disney offer data
-    setPrompt(`${offer.description}\n\nHighlights:\n${offer.highlights.join("\n")}`);
+    setPrompt(
+      `${offer.description}\n\nHighlights:\n${offer.highlights.join("\n")}`
+    );
     setDestination(offer.destination);
     setType("disney-park");
 
@@ -300,28 +308,31 @@ export default function NewPackagePage() {
     setGeneratingPosts(true);
     try {
       const token = localStorage.getItem("admin_token");
-      const response = await fetch("/api/admin/packages/generate-social-posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          packageId: packageData.id,
-          title: packageData.title,
-          description: packageData.shortDescription,
-          fullDescription: packageData.description,
-          destination: packageData.destination,
-          price: packageData.startingPrice,
-          nights: packageData.nights,
-          days: packageData.days,
-          type: packageData.type || type,
-          category: packageData.category || category,
-          inclusions: JSON.parse(packageData.inclusions || "[]"),
-          tags: JSON.parse(packageData.tags || "[]"),
-          adjustmentPrompt: adjustmentPrompt,
-        }),
-      });
+      const response = await fetch(
+        "/api/admin/packages/generate-social-posts",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            packageId: packageData.id,
+            title: packageData.title,
+            description: packageData.shortDescription,
+            fullDescription: packageData.description,
+            destination: packageData.destination,
+            price: packageData.startingPrice,
+            nights: packageData.nights,
+            days: packageData.days,
+            type: packageData.type || type,
+            category: packageData.category || category,
+            inclusions: JSON.parse(packageData.inclusions || "[]"),
+            tags: JSON.parse(packageData.tags || "[]"),
+            adjustmentPrompt: adjustmentPrompt,
+          }),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -380,7 +391,14 @@ export default function NewPackagePage() {
                 Add New Vacation Package
               </h1>
               <p className="text-gray-600">
-                Step {step} of 4 - {step === 1 ? "Basic Info" : step === 2 ? "Review Content" : step === 3 ? "Upload Images" : "Social Media Posts"}
+                Step {step} of 4 -{" "}
+                {step === 1
+                  ? "Basic Info"
+                  : step === 2
+                    ? "Review Content"
+                    : step === 3
+                      ? "Upload Images"
+                      : "Social Media Posts"}
               </p>
             </div>
           </div>
@@ -433,7 +451,8 @@ export default function NewPackagePage() {
                   required
                 />
                 <p className="text-sm text-gray-500 mt-1">
-                  The AI will use this to generate professional descriptions, inclusions, and marketing content
+                  The AI will use this to generate professional descriptions,
+                  inclusions, and marketing content
                 </p>
               </div>
 
@@ -564,7 +583,8 @@ export default function NewPackagePage() {
                 </h3>
               </div>
               <p className="text-gray-700">
-                Review and edit the content below. The AI has created professional descriptions based on your input.
+                Review and edit the content below. The AI has created
+                professional descriptions based on your input.
               </p>
             </div>
 
@@ -579,7 +599,10 @@ export default function NewPackagePage() {
                     type="text"
                     value={editableContent.title}
                     onChange={(e) =>
-                      setEditableContent({ ...editableContent, title: e.target.value })
+                      setEditableContent({
+                        ...editableContent,
+                        title: e.target.value,
+                      })
                     }
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
@@ -631,7 +654,9 @@ export default function NewPackagePage() {
                     onChange={(e) =>
                       setEditableContent({
                         ...editableContent,
-                        inclusions: e.target.value.split("\n").filter((i) => i.trim()),
+                        inclusions: e.target.value
+                          .split("\n")
+                          .filter((i) => i.trim()),
                       })
                     }
                     rows={6}
@@ -649,7 +674,9 @@ export default function NewPackagePage() {
                     onChange={(e) =>
                       setEditableContent({
                         ...editableContent,
-                        exclusions: e.target.value.split("\n").filter((i) => i.trim()),
+                        exclusions: e.target.value
+                          .split("\n")
+                          .filter((i) => i.trim()),
                       })
                     }
                     rows={4}
@@ -668,7 +695,10 @@ export default function NewPackagePage() {
                     onChange={(e) =>
                       setEditableContent({
                         ...editableContent,
-                        tags: e.target.value.split(",").map((t) => t.trim()).filter((t) => t),
+                        tags: e.target.value
+                          .split(",")
+                          .map((t) => t.trim())
+                          .filter((t) => t),
                       })
                     }
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -705,15 +735,23 @@ export default function NewPackagePage() {
               {scanningImages && (
                 <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 text-center">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-2"></div>
-                  <p className="text-purple-700 font-medium">Scanning Disney website for vacation images...</p>
-                  <p className="text-purple-600 text-sm">This may take a moment</p>
+                  <p className="text-purple-700 font-medium">
+                    Scanning Disney website for vacation images...
+                  </p>
+                  <p className="text-purple-600 text-sm">
+                    This may take a moment
+                  </p>
                 </div>
               )}
 
               {!scanningImages && disneyImages.length > 0 && (
                 <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                  <p className="text-green-700 font-medium">✅ Found {disneyImages.length} Disney images!</p>
-                  <p className="text-green-600 text-sm">Click any image below to add it, or upload your own</p>
+                  <p className="text-green-700 font-medium">
+                    ✅ Found {disneyImages.length} Disney images!
+                  </p>
+                  <p className="text-green-600 text-sm">
+                    Click any image below to add it, or upload your own
+                  </p>
                 </div>
               )}
 
@@ -737,7 +775,9 @@ export default function NewPackagePage() {
               {/* Disney Images Grid */}
               {!scanningImages && disneyImages.length > 0 && (
                 <div>
-                  <h3 className="text-md font-semibold text-gray-800 mb-3">Disney Vacation Images</h3>
+                  <h3 className="text-md font-semibold text-gray-800 mb-3">
+                    Disney Vacation Images
+                  </h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-h-96 overflow-y-auto border border-gray-200 rounded-lg p-3">
                     {disneyImages.map((image, index) => (
                       <div
@@ -751,7 +791,7 @@ export default function NewPackagePage() {
                             alt={image.description}
                             className="w-full h-full object-cover"
                             onError={(e) => {
-                              e.currentTarget.src = '/placeholder.jpg';
+                              e.currentTarget.src = "/placeholder.jpg";
                             }}
                           />
                           {downloadingImages.includes(image.url) && (
@@ -774,7 +814,9 @@ export default function NewPackagePage() {
               {/* Uploaded Image Previews */}
               {imagePreviews.length > 0 && (
                 <div>
-                  <h3 className="text-md font-semibold text-gray-800 mb-3">Selected Images</h3>
+                  <h3 className="text-md font-semibold text-gray-800 mb-3">
+                    Selected Images
+                  </h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                     {imagePreviews.map((preview, index) => (
                       <div key={index} className="relative">
@@ -833,7 +875,9 @@ export default function NewPackagePage() {
             {generatingPosts ? (
               <div className="text-center py-12">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                <p className="text-gray-600">Generating social media posts...</p>
+                <p className="text-gray-600">
+                  Generating social media posts...
+                </p>
               </div>
             ) : (
               <div className="space-y-6">
@@ -852,7 +896,11 @@ export default function NewPackagePage() {
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex items-center gap-2">
                           <span className="text-2xl">
-                            {post.platform === "instagram" ? "📷" : post.platform === "facebook" ? "📘" : "🐦"}
+                            {post.platform === "instagram"
+                              ? "📷"
+                              : post.platform === "facebook"
+                                ? "📘"
+                                : "🐦"}
                           </span>
                           <h3 className="font-bold text-gray-900 capitalize">
                             {post.platform} Post Option {index + 1}
@@ -884,7 +932,8 @@ export default function NewPackagePage() {
                 {/* Adjustment Prompt */}
                 <div className="bg-gray-50 rounded-lg p-4">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Want to adjust the posts? Describe what you&apos;d like changed:
+                    Want to adjust the posts? Describe what you&apos;d like
+                    changed:
                   </label>
                   <textarea
                     value={adjustmentPrompt}
@@ -898,7 +947,9 @@ export default function NewPackagePage() {
                     disabled={generatingPosts || !adjustmentPrompt.trim()}
                     className="mt-3 bg-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-purple-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
                   >
-                    {generatingPosts ? "Generating..." : "🔄 Generate New Options"}
+                    {generatingPosts
+                      ? "Generating..."
+                      : "🔄 Generate New Options"}
                   </button>
                 </div>
 
@@ -906,7 +957,11 @@ export default function NewPackagePage() {
                 <div className="flex justify-between pt-4">
                   <button
                     onClick={() => {
-                      if (confirm("Are you sure? You'll need to re-upload images.")) {
+                      if (
+                        confirm(
+                          "Are you sure? You'll need to re-upload images."
+                        )
+                      ) {
                         setStep(3);
                       }
                     }}
@@ -924,8 +979,11 @@ export default function NewPackagePage() {
                     <button
                       onClick={() => {
                         if (selectedPostIndex !== null) {
-                          const selectedPost = socialMediaPosts[selectedPostIndex];
-                          navigator.clipboard.writeText(`${selectedPost.text}\n\n${selectedPost.hashtags.join(" ")}`);
+                          const selectedPost =
+                            socialMediaPosts[selectedPostIndex];
+                          navigator.clipboard.writeText(
+                            `${selectedPost.text}\n\n${selectedPost.hashtags.join(" ")}`
+                          );
                           alert("Social media post copied to clipboard!");
                         }
                         handleFinishAndPublish();
@@ -959,7 +1017,8 @@ export default function NewPackagePage() {
                   </button>
                 </div>
                 <p className="text-gray-600 mt-1">
-                  {disneyOffers.length} new offer(s) found. Click to auto-fill the form.
+                  {disneyOffers.length} new offer(s) found. Click to auto-fill
+                  the form.
                 </p>
               </div>
 
@@ -1006,9 +1065,11 @@ export default function NewPackagePage() {
                         <div className="text-sm text-gray-600">
                           <strong>Highlights:</strong>
                           <ul className="list-disc list-inside mt-1">
-                            {offer.highlights.slice(0, 3).map((highlight, i) => (
-                              <li key={i}>{highlight}</li>
-                            ))}
+                            {offer.highlights
+                              .slice(0, 3)
+                              .map((highlight, i) => (
+                                <li key={i}>{highlight}</li>
+                              ))}
                           </ul>
                         </div>
                       )}
@@ -1022,7 +1083,6 @@ export default function NewPackagePage() {
             </div>
           </div>
         )}
-
       </div>
     </div>
   );

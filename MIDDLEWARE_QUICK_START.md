@@ -1,21 +1,25 @@
 # Middleware Quick Start Guide
 
 ## Overview
+
 This project now has comprehensive role-based middleware protection for all admin routes.
 
 ## Quick Test
 
 ### 1. Start the server
+
 ```bash
 npm run dev
 ```
 
 ### 2. Test unauthenticated access (should fail with 401)
+
 ```bash
 curl http://localhost:3000/api/admin/inquiries
 ```
 
 Expected response:
+
 ```json
 {
   "error": "Authentication required",
@@ -24,6 +28,7 @@ Expected response:
 ```
 
 ### 3. Login as admin
+
 ```bash
 curl -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
@@ -33,12 +38,14 @@ curl -X POST http://localhost:3000/api/auth/login \
 Save the token from the response.
 
 ### 4. Access protected route with token (should succeed)
+
 ```bash
 curl http://localhost:3000/api/admin/inquiries \
   -H "Authorization: Bearer YOUR_TOKEN_HERE"
 ```
 
 Expected response:
+
 ```json
 {
   "success": true,
@@ -75,6 +82,7 @@ Expected response:
 All admin API routes now use middleware:
 
 ### Admin-Only Routes (require ADMIN role):
+
 - ✓ POST /api/admin/packages
 - ✓ POST /api/admin/packages/generate
 - ✓ POST /api/admin/packages/scan-disney
@@ -83,6 +91,7 @@ All admin API routes now use middleware:
 - ✓ POST /api/admin/packages/generate-social-posts
 
 ### Authenticated Routes (any logged-in user):
+
 - ✓ GET /api/admin/inquiries
 - ✓ GET /api/admin/inquiries/[id]
 - ✓ PATCH /api/admin/inquiries/[id]
@@ -110,6 +119,7 @@ All admin API routes now use middleware:
 ## Common Usage Patterns
 
 ### Protect a new route with admin-only access:
+
 ```typescript
 import { withMiddleware, requireAdmin } from "@/lib/middleware";
 
@@ -121,6 +131,7 @@ export const POST = withMiddleware(handlePOST, requireAdmin());
 ```
 
 ### Allow multiple roles:
+
 ```typescript
 import { withMiddleware, requireRole } from "@/lib/middleware";
 import { UserRole } from "@prisma/client";
@@ -132,6 +143,7 @@ export const GET = withMiddleware(
 ```
 
 ### Get current user in route:
+
 ```typescript
 import { getUserFromRequest } from "@/lib/middleware";
 
@@ -176,6 +188,7 @@ async function handleGET(request: NextRequest) {
 ## Documentation
 
 See `MIDDLEWARE_DOCUMENTATION.md` for complete documentation including:
+
 - Architecture overview
 - All middleware functions
 - Implementation examples

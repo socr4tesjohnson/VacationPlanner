@@ -77,14 +77,23 @@ export default function LoginPage() {
             href="/"
             className="inline-flex items-center gap-2 text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors mb-8 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
           >
-            <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <svg
+              className="w-8 h-8 text-blue-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
             Vacation Planner
           </Link>
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">
-            Admin Login
-          </h2>
+          <h2 className="mt-6 text-3xl font-bold text-gray-900">Admin Login</h2>
           <p className="mt-2 text-sm text-gray-600">
             Sign in to access the admin dashboard
           </p>
@@ -96,8 +105,19 @@ export default function LoginPage() {
             {/* General Error Message */}
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-start gap-3">
-                <svg className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                <svg
+                  className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
                 </svg>
                 <div>
                   <p className="font-semibold text-sm">Login Failed</p>
@@ -125,7 +145,9 @@ export default function LoginPage() {
                   setEmail(e.target.value);
                   setValidationErrors({ ...validationErrors, email: "" });
                 }}
-                aria-describedby={validationErrors.email ? "email-error" : undefined}
+                aria-describedby={
+                  validationErrors.email ? "email-error" : undefined
+                }
                 aria-invalid={!!validationErrors.email}
                 className={`appearance-none relative block w-full px-4 py-3 border ${
                   validationErrors.email
@@ -135,9 +157,24 @@ export default function LoginPage() {
                 placeholder="admin@example.com"
               />
               {validationErrors.email && (
-                <p id="email-error" role="alert" className="mt-2 text-sm text-red-600 flex items-center gap-1">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                <p
+                  id="email-error"
+                  role="alert"
+                  className="mt-2 text-sm text-red-600 flex items-center gap-1"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                    />
                   </svg>
                   {validationErrors.email}
                 </p>
@@ -163,7 +200,9 @@ export default function LoginPage() {
                   setPassword(e.target.value);
                   setValidationErrors({ ...validationErrors, password: "" });
                 }}
-                aria-describedby={validationErrors.password ? "password-error" : undefined}
+                aria-describedby={
+                  validationErrors.password ? "password-error" : undefined
+                }
                 aria-invalid={!!validationErrors.password}
                 className={`appearance-none relative block w-full px-4 py-3 border ${
                   validationErrors.password
@@ -173,9 +212,24 @@ export default function LoginPage() {
                 placeholder="Enter your password"
               />
               {validationErrors.password && (
-                <p id="password-error" role="alert" className="mt-2 text-sm text-red-600 flex items-center gap-1">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                <p
+                  id="password-error"
+                  role="alert"
+                  className="mt-2 text-sm text-red-600 flex items-center gap-1"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                    />
                   </svg>
                   {validationErrors.password}
                 </p>
@@ -231,8 +285,19 @@ export default function LoginPage() {
               href="/"
               className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors inline-flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                />
               </svg>
               Back to Home
             </Link>
@@ -242,8 +307,19 @@ export default function LoginPage() {
         {/* Demo Credentials Info */}
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm">
           <div className="flex gap-3">
-            <svg className="w-5 h-5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <svg
+              className="w-5 h-5 text-blue-600 flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
             <div>
               <p className="font-semibold text-blue-900 mb-1">

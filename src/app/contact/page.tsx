@@ -79,11 +79,16 @@ export default function ContactPage() {
 
       // Redirect to recommendations page with data
       if (result.recommendations && result.recommendations.length > 0) {
-        const encodedData = encodeURIComponent(JSON.stringify(result.recommendations));
+        const encodedData = encodeURIComponent(
+          JSON.stringify(result.recommendations)
+        );
         router.push(`/recommendations?data=${encodedData}`);
       }
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to submit. Please try again.";
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Failed to submit. Please try again.";
       setSubmitError(errorMessage);
       console.error("Form submission error:", error);
       setIsSubmitting(false);
@@ -94,12 +99,18 @@ export default function ContactPage() {
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">Let&apos;s Plan Your Dream Vacation!</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+            Let&apos;s Plan Your Dream Vacation!
+          </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            I&apos;m Laura Coleman, and I can&apos;t wait to help you create magical memories! Share your travel dreams below, and I&apos;ll reach out within 24 hours with personalized recommendations tailored just for your family.
+            I&apos;m Laura Coleman, and I can&apos;t wait to help you create
+            magical memories! Share your travel dreams below, and I&apos;ll
+            reach out within 24 hours with personalized recommendations tailored
+            just for your family.
           </p>
           <p className="text-sm text-gray-500 mt-3">
-            No pressure, no obligation — just great vacation ideas designed around you!
+            No pressure, no obligation — just great vacation ideas designed
+            around you!
           </p>
         </div>
 
@@ -117,7 +128,8 @@ export default function ContactPage() {
                 ✨ Finding Your Perfect Vacation...
               </h3>
               <p className="text-gray-600 text-center">
-                I&apos;m analyzing your preferences to create the best recommendations just for you!
+                I&apos;m analyzing your preferences to create the best
+                recommendations just for you!
               </p>
             </div>
           </div>
@@ -126,225 +138,236 @@ export default function ContactPage() {
             onSubmit={handleSubmit(onSubmit)}
             className="bg-white rounded-lg shadow-md p-8"
           >
-          {/* Personal Information */}
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold mb-4 text-gray-900">Tell Me About You</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  First Name *
-                </label>
-                <input
-                  {...register("firstName")}
-                  type="text"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                {errors.firstName && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.firstName.message}
-                  </p>
-                )}
-              </div>
+            {/* Personal Information */}
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold mb-4 text-gray-900">
+                Tell Me About You
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    First Name *
+                  </label>
+                  <input
+                    {...register("firstName")}
+                    type="text"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  {errors.firstName && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.firstName.message}
+                    </p>
+                  )}
+                </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Last Name *
-                </label>
-                <input
-                  {...register("lastName")}
-                  type="text"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                {errors.lastName && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.lastName.message}
-                  </p>
-                )}
-              </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Last Name *
+                  </label>
+                  <input
+                    {...register("lastName")}
+                    type="text"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  {errors.lastName && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.lastName.message}
+                    </p>
+                  )}
+                </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email *
-                </label>
-                <input
-                  {...register("email")}
-                  type="email"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                {errors.email && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.email.message}
-                  </p>
-                )}
-              </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Email *
+                  </label>
+                  <input
+                    {...register("email")}
+                    type="email"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.email.message}
+                    </p>
+                  )}
+                </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone *
-                </label>
-                <input
-                  {...register("phone")}
-                  type="tel"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                {errors.phone && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.phone.message}
-                  </p>
-                )}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Phone *
+                  </label>
+                  <input
+                    {...register("phone")}
+                    type="tel"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  {errors.phone && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.phone.message}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Trip Details */}
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold mb-4 text-gray-900">Your Dream Vacation Details</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Preferred Start Date
-                </label>
-                <div
-                  onClick={() => startDateRef.current?.showPicker()}
-                  className="cursor-pointer"
-                >
-                  <input
-                    {...register("startDate", {
-                      onChange: (e) => {
-                        const selectedStart = e.target.value;
-                        const currentEnd = watchedEndDate;
+            {/* Trip Details */}
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold mb-4 text-gray-900">
+                Your Dream Vacation Details
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Preferred Start Date
+                  </label>
+                  <div
+                    onClick={() => startDateRef.current?.showPicker()}
+                    className="cursor-pointer"
+                  >
+                    <input
+                      {...register("startDate", {
+                        onChange: (e) => {
+                          const selectedStart = e.target.value;
+                          const currentEnd = watchedEndDate;
 
-                        // Always update end date to be after start date
-                        if (selectedStart) {
-                          if (!currentEnd || currentEnd <= selectedStart) {
-                            const nextDay = new Date(selectedStart);
-                            nextDay.setDate(nextDay.getDate() + 1);
-                            setValue("endDate", nextDay.toISOString().split('T')[0]);
+                          // Always update end date to be after start date
+                          if (selectedStart) {
+                            if (!currentEnd || currentEnd <= selectedStart) {
+                              const nextDay = new Date(selectedStart);
+                              nextDay.setDate(nextDay.getDate() + 1);
+                              setValue(
+                                "endDate",
+                                nextDay.toISOString().split("T")[0]
+                              );
+                            }
                           }
-                        }
-                      }
-                    })}
-                    ref={startDateRef}
-                    type="date"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer"
+                        },
+                      })}
+                      ref={startDateRef}
+                      type="date"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Preferred End Date
+                  </label>
+                  <div
+                    onClick={() => endDateRef.current?.showPicker()}
+                    className="cursor-pointer"
+                  >
+                    <input
+                      {...register("endDate")}
+                      ref={endDateRef}
+                      type="date"
+                      min={watchedStartDate || undefined}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    How many adults?
+                  </label>
+                  <input
+                    {...register("adults", { valueAsNumber: true })}
+                    type="number"
+                    min="1"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  {errors.adults && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.adults.message}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    How many children?
+                  </label>
+                  <input
+                    {...register("children", { valueAsNumber: true })}
+                    type="number"
+                    min="0"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
-              </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Preferred End Date
-                </label>
-                <div
-                  onClick={() => endDateRef.current?.showPicker()}
-                  className="cursor-pointer"
-                >
-                  <input
-                    {...register("endDate")}
-                    ref={endDateRef}
-                    type="date"
-                    min={watchedStartDate || undefined}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer"
-                  />
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    What&apos;s your approximate budget?
+                  </label>
+                  <select
+                    {...register("budgetRange")}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    <option value="">I&apos;m not sure yet</option>
+                    <option value="under-2000">Under $2,000</option>
+                    <option value="2000-5000">$2,000 - $5,000</option>
+                    <option value="5000-10000">$5,000 - $10,000</option>
+                    <option value="over-10000">Over $10,000</option>
+                  </select>
                 </div>
-              </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  How many adults?
-                </label>
-                <input
-                  {...register("adults", { valueAsNumber: true })}
-                  type="number"
-                  min="1"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                {errors.adults && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.adults.message}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  How many children?
-                </label>
-                <input
-                  {...register("children", { valueAsNumber: true })}
-                  type="number"
-                  min="0"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  What&apos;s your approximate budget?
-                </label>
-                <select
-                  {...register("budgetRange")}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="">I&apos;m not sure yet</option>
-                  <option value="under-2000">Under $2,000</option>
-                  <option value="2000-5000">$2,000 - $5,000</option>
-                  <option value="5000-10000">$5,000 - $10,000</option>
-                  <option value="over-10000">Over $10,000</option>
-                </select>
-              </div>
-
-              <div className="md:col-span-2">
-                <label className="flex items-center">
-                  <input
-                    {...register("flexible")}
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <span className="ml-2 text-sm text-gray-700">
-                    My travel dates are flexible
-                  </span>
-                </label>
+                <div className="md:col-span-2">
+                  <label className="flex items-center">
+                    <input
+                      {...register("flexible")}
+                      type="checkbox"
+                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    />
+                    <span className="ml-2 text-sm text-gray-700">
+                      My travel dates are flexible
+                    </span>
+                  </label>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Message */}
-          <div className="mb-8">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Tell me about your dream vacation! *
-            </label>
-            <textarea
-              {...register("message")}
-              rows={5}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Disney World? Universal? A magical cruise? Share your vision and any special occasions, must-dos, or concerns you have. The more I know, the better I can help!"
-            />
-            {errors.message && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.message.message}
-              </p>
-            )}
-          </div>
+            {/* Message */}
+            <div className="mb-8">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Tell me about your dream vacation! *
+              </label>
+              <textarea
+                {...register("message")}
+                rows={5}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Disney World? Universal? A magical cruise? Share your vision and any special occasions, must-dos, or concerns you have. The more I know, the better I can help!"
+              />
+              {errors.message && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.message.message}
+                </p>
+              )}
+            </div>
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-          >
-            {isSubmitting ? "Sending to Laura..." : "Send My Info to Laura"}
-          </button>
-          <p className="text-center text-sm text-gray-500 mt-4">
-            ✓ Laura responds within 24 hours &nbsp;·&nbsp; ✓ No obligation &nbsp;·&nbsp; ✓ Your info is secure
-          </p>
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            >
+              {isSubmitting ? "Sending to Laura..." : "Send My Info to Laura"}
+            </button>
+            <p className="text-center text-sm text-gray-500 mt-4">
+              ✓ Laura responds within 24 hours &nbsp;·&nbsp; ✓ No obligation
+              &nbsp;·&nbsp; ✓ Your info is secure
+            </p>
           </form>
         )}
 
         <div className="mt-12 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-8 text-center">
-          <h3 className="text-xl font-bold text-gray-900 mb-3">Prefer to Chat Directly?</h3>
+          <h3 className="text-xl font-bold text-gray-900 mb-3">
+            Prefer to Chat Directly?
+          </h3>
           <p className="text-gray-700 mb-4">
-            I&apos;d love to hear from you! Find me on social media or through Whitney World Travel.
+            I&apos;d love to hear from you! Find me on social media or through
+            Whitney World Travel.
           </p>
           <div className="flex justify-center gap-4 mb-4">
             <a
@@ -354,7 +377,7 @@ export default function ContactPage() {
               className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
               </svg>
               Message on Facebook
             </a>
@@ -364,8 +387,18 @@ export default function ContactPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                />
               </svg>
               Whitney World Travel
             </a>

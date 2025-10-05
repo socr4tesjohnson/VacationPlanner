@@ -35,9 +35,7 @@ export type MiddlewareFunction = (
  * Extract and validate user from session token
  * Returns user object or null if invalid
  */
-export async function getUserFromRequest(
-  request: NextRequest
-): Promise<{
+export async function getUserFromRequest(request: NextRequest): Promise<{
   id: string;
   email: string;
   firstName: string;
@@ -183,10 +181,7 @@ export function withMiddleware(
   handler: (request: NextRequest, context?: any) => Promise<NextResponse>,
   ...middlewares: MiddlewareFunction[]
 ) {
-  return async (
-    request: NextRequest,
-    context?: any
-  ): Promise<NextResponse> => {
+  return async (request: NextRequest, context?: any): Promise<NextResponse> => {
     // Run all middleware
     for (const middleware of middlewares) {
       const response = await middleware(request);

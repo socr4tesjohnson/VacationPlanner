@@ -20,7 +20,7 @@ async function handlePOST(request: NextRequest) {
       category,
       inclusions,
       tags,
-      adjustmentPrompt
+      adjustmentPrompt,
     } = await request.json();
 
     // Build a rich prompt with all available information
@@ -42,16 +42,16 @@ ${description}
 ${fullDescription || description}`;
 
     if (inclusions && inclusions.length > 0) {
-      packageDetails += `\n\n**What's Included:**\n${inclusions.map((item: string) => `- ${item}`).join('\n')}`;
+      packageDetails += `\n\n**What's Included:**\n${inclusions.map((item: string) => `- ${item}`).join("\n")}`;
     }
 
     if (tags && tags.length > 0) {
-      packageDetails += `\n\n**Key Themes/Tags:** ${tags.join(', ')}`;
+      packageDetails += `\n\n**Key Themes/Tags:** ${tags.join(", ")}`;
     }
 
     const aiPrompt = `${packageDetails}
 
-${adjustmentPrompt ? `\n**IMPORTANT ADJUSTMENT REQUEST:** ${adjustmentPrompt}\n\n` : ''}
+${adjustmentPrompt ? `\n**IMPORTANT ADJUSTMENT REQUEST:** ${adjustmentPrompt}\n\n` : ""}
 
 Create posts optimized for:
 1. Instagram (visual, lifestyle-focused, emoji-rich)
@@ -95,7 +95,8 @@ Return ONLY valid JSON in this exact format:
       ],
     });
 
-    const responseText = message.content[0].type === "text" ? message.content[0].text : "";
+    const responseText =
+      message.content[0].type === "text" ? message.content[0].text : "";
 
     // Parse JSON with robust error handling
     let jsonText = responseText.trim();
@@ -121,12 +122,23 @@ Return ONLY valid JSON in this exact format:
         {
           platform: "instagram",
           text: `✨ ${title} ✨\n\n${description}\n\nStarting at just $${price}! 🎉\n\nBook your dream vacation today! Link in bio 👆`,
-          hashtags: ["#VacationGoals", "#TravelMore", "#Disney", "#FamilyVacation", "#DreamDestination"],
+          hashtags: [
+            "#VacationGoals",
+            "#TravelMore",
+            "#Disney",
+            "#FamilyVacation",
+            "#DreamDestination",
+          ],
         },
         {
           platform: "facebook",
           text: `🌟 ${title}\n\n${description}\n\nPrices start at $${price} per person. Don't miss out on this amazing opportunity to create unforgettable memories!\n\nContact us today to book your adventure! 📞`,
-          hashtags: ["#VacationPlanning", "#FamilyTravel", "#Disney", "#MakingMemories"],
+          hashtags: [
+            "#VacationPlanning",
+            "#FamilyTravel",
+            "#Disney",
+            "#MakingMemories",
+          ],
         },
         {
           platform: "twitter",
@@ -145,7 +157,10 @@ Return ONLY valid JSON in this exact format:
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : "Failed to generate social media posts",
+        error:
+          error instanceof Error
+            ? error.message
+            : "Failed to generate social media posts",
       },
       { status: 500 }
     );

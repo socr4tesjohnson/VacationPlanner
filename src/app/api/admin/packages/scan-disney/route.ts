@@ -15,7 +15,8 @@ async function handlePOST(request: NextRequest) {
     // Use fetch to get the page content
     const response = await fetch(disneyUrl, {
       headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
       },
     });
 
@@ -116,7 +117,10 @@ If you can't find clear offers in the HTML, return an empty array [].`;
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : "Failed to scan Disney website",
+        error:
+          error instanceof Error
+            ? error.message
+            : "Failed to scan Disney website",
       },
       { status: 500 }
     );

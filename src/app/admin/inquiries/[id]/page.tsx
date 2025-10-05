@@ -36,16 +36,20 @@ interface Inquiry {
 }
 
 const DEFAULT_CHECKLIST_ITEMS = [
-  { id: '1', text: 'Travel insurance discussed', completed: false },
-  { id: '2', text: 'Dining plan preferences', completed: false },
-  { id: '3', text: 'Park tickets included', completed: false },
-  { id: '4', text: 'Hotel preferences confirmed', completed: false },
-  { id: '5', text: 'Transportation needs (airport, parks)', completed: false },
-  { id: '6', text: 'Special occasions (birthday, anniversary)', completed: false },
-  { id: '7', text: 'Dietary restrictions noted', completed: false },
-  { id: '8', text: 'Character dining reservations', completed: false },
-  { id: '9', text: 'Genie+ / Lightning Lane discussed', completed: false },
-  { id: '10', text: 'Payment schedule confirmed', completed: false },
+  { id: "1", text: "Travel insurance discussed", completed: false },
+  { id: "2", text: "Dining plan preferences", completed: false },
+  { id: "3", text: "Park tickets included", completed: false },
+  { id: "4", text: "Hotel preferences confirmed", completed: false },
+  { id: "5", text: "Transportation needs (airport, parks)", completed: false },
+  {
+    id: "6",
+    text: "Special occasions (birthday, anniversary)",
+    completed: false,
+  },
+  { id: "7", text: "Dietary restrictions noted", completed: false },
+  { id: "8", text: "Character dining reservations", completed: false },
+  { id: "9", text: "Genie+ / Lightning Lane discussed", completed: false },
+  { id: "10", text: "Payment schedule confirmed", completed: false },
 ];
 
 export default function InquiryDetailPage() {
@@ -58,7 +62,9 @@ export default function InquiryDetailPage() {
   const [notes, setNotes] = useState("");
   const [quotedAmount, setQuotedAmount] = useState("");
   const [commissionRate, setCommissionRate] = useState("10");
-  const [checklist, setChecklist] = useState<ChecklistItem[]>(DEFAULT_CHECKLIST_ITEMS);
+  const [checklist, setChecklist] = useState<ChecklistItem[]>(
+    DEFAULT_CHECKLIST_ITEMS
+  );
 
   useEffect(() => {
     const token = localStorage.getItem("session_token");
@@ -144,7 +150,7 @@ export default function InquiryDetailPage() {
         body: JSON.stringify({
           quotedAmount: quoted,
           commissionRate: rate,
-          commissionAmount: commission
+          commissionAmount: commission,
         }),
       });
 
@@ -153,7 +159,7 @@ export default function InquiryDetailPage() {
           ...inquiry,
           quotedAmount: quoted,
           commissionRate: rate,
-          commissionAmount: commission
+          commissionAmount: commission,
         });
       }
     } catch (err) {
@@ -180,7 +186,7 @@ export default function InquiryDetailPage() {
   };
 
   const toggleChecklistItem = (id: string) => {
-    const updated = checklist.map(item =>
+    const updated = checklist.map((item) =>
       item.id === id ? { ...item, completed: !item.completed } : item
     );
     setChecklist(updated);
@@ -289,20 +295,22 @@ export default function InquiryDetailPage() {
             Update Status
           </h2>
           <div className="flex gap-3 flex-wrap">
-            {["new", "contacted", "quoted", "booked", "closed"].map((status) => (
-              <button
-                key={status}
-                onClick={() => updateStatus(status)}
-                disabled={updating || inquiry.status === status}
-                className={`px-4 py-2 rounded-lg font-medium transition ${
-                  inquiry.status === status
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                } disabled:opacity-50 disabled:cursor-not-allowed capitalize`}
-              >
-                {status}
-              </button>
-            ))}
+            {["new", "contacted", "quoted", "booked", "closed"].map(
+              (status) => (
+                <button
+                  key={status}
+                  onClick={() => updateStatus(status)}
+                  disabled={updating || inquiry.status === status}
+                  className={`px-4 py-2 rounded-lg font-medium transition ${
+                    inquiry.status === status
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  } disabled:opacity-50 disabled:cursor-not-allowed capitalize`}
+                >
+                  {status}
+                </button>
+              )
+            )}
           </div>
         </div>
 
@@ -382,7 +390,9 @@ export default function InquiryDetailPage() {
             <h2 className="text-lg font-semibold text-gray-900 mb-4">
               Interested Package
             </h2>
-            <div className="text-base text-gray-900">{inquiry.packageTitle}</div>
+            <div className="text-base text-gray-900">
+              {inquiry.packageTitle}
+            </div>
           </div>
         )}
 
@@ -392,13 +402,17 @@ export default function InquiryDetailPage() {
             Customer Message
           </h2>
           <div className="bg-gray-50 rounded-lg p-4">
-            <p className="text-gray-900 whitespace-pre-wrap">{inquiry.message}</p>
+            <p className="text-gray-900 whitespace-pre-wrap">
+              {inquiry.message}
+            </p>
           </div>
         </div>
 
         {/* Quote & Commission Tracker */}
         <div className="bg-white rounded-lg shadow p-6 mt-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">💰 Quote & Commission</h2>
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            💰 Quote & Commission
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -431,7 +445,12 @@ export default function InquiryDetailPage() {
                 Your Commission
               </label>
               <div className="w-full px-3 py-2 bg-green-50 border-2 border-green-500 rounded-lg font-bold text-green-700 text-lg">
-                ${((parseFloat(quotedAmount) || 0) * (parseFloat(commissionRate) || 0) / 100).toFixed(2)}
+                $
+                {(
+                  ((parseFloat(quotedAmount) || 0) *
+                    (parseFloat(commissionRate) || 0)) /
+                  100
+                ).toFixed(2)}
               </div>
             </div>
           </div>
@@ -445,8 +464,12 @@ export default function InquiryDetailPage() {
 
         {/* Client Checklist */}
         <div className="bg-white rounded-lg shadow p-6 mt-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">✅ Client Checklist</h2>
-          <p className="text-sm text-gray-600 mb-4">Track what you&apos;ve discussed with the client</p>
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            ✅ Client Checklist
+          </h2>
+          <p className="text-sm text-gray-600 mb-4">
+            Track what you&apos;ve discussed with the client
+          </p>
           <div className="space-y-2">
             {checklist.map((item) => (
               <label
@@ -459,21 +482,28 @@ export default function InquiryDetailPage() {
                   onChange={() => toggleChecklistItem(item.id)}
                   className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                 />
-                <span className={`ml-3 text-gray-700 ${item.completed ? 'line-through text-gray-400' : ''}`}>
+                <span
+                  className={`ml-3 text-gray-700 ${item.completed ? "line-through text-gray-400" : ""}`}
+                >
                   {item.text}
                 </span>
               </label>
             ))}
           </div>
           <div className="mt-4 text-sm text-gray-600">
-            Completed: {checklist.filter(item => item.completed).length} / {checklist.length}
+            Completed: {checklist.filter((item) => item.completed).length} /{" "}
+            {checklist.length}
           </div>
         </div>
 
         {/* Private Notes */}
         <div className="bg-white rounded-lg shadow p-6 mt-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">📝 Private Notes</h2>
-          <p className="text-sm text-gray-600 mb-3">Only you can see these notes</p>
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            📝 Private Notes
+          </h2>
+          <p className="text-sm text-gray-600 mb-3">
+            Only you can see these notes
+          </p>
           <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
@@ -482,7 +512,9 @@ export default function InquiryDetailPage() {
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
             placeholder="Add your private notes about this client, conversation highlights, special requests, etc..."
           />
-          <div className="text-xs text-gray-500 mt-2">Auto-saves when you click away</div>
+          <div className="text-xs text-gray-500 mt-2">
+            Auto-saves when you click away
+          </div>
         </div>
 
         {/* Metadata */}

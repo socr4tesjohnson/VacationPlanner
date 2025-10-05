@@ -14,10 +14,7 @@ async function handleGET(
     });
 
     if (!inquiry) {
-      return NextResponse.json(
-        { error: "Inquiry not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Inquiry not found" }, { status: 404 });
     }
 
     return NextResponse.json({
@@ -45,7 +42,14 @@ async function handlePATCH(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { status, notes, quotedAmount, commissionRate, commissionAmount, checklist } = body;
+    const {
+      status,
+      notes,
+      quotedAmount,
+      commissionRate,
+      commissionAmount,
+      checklist,
+    } = body;
 
     // Validate status if provided
     if (status !== undefined) {
@@ -68,8 +72,10 @@ async function handlePATCH(
     if (status !== undefined) updateData.status = status;
     if (notes !== undefined) updateData.notes = notes;
     if (quotedAmount !== undefined) updateData.quotedAmount = quotedAmount;
-    if (commissionRate !== undefined) updateData.commissionRate = commissionRate;
-    if (commissionAmount !== undefined) updateData.commissionAmount = commissionAmount;
+    if (commissionRate !== undefined)
+      updateData.commissionRate = commissionRate;
+    if (commissionAmount !== undefined)
+      updateData.commissionAmount = commissionAmount;
     if (checklist !== undefined) updateData.checklist = checklist;
 
     const inquiry = await prisma.contactInquiry.update({

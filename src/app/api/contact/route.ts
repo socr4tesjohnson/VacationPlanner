@@ -86,14 +86,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error: "Invalid form data: " + error.issues.map(e => e.message).join(", "),
+          error:
+            "Invalid form data: " +
+            error.issues.map((e) => e.message).join(", "),
           errors: error.issues,
         },
         { status: 400 }
       );
     }
 
-    const errorMessage = error instanceof Error ? error.message : "Failed to submit contact inquiry";
+    const errorMessage =
+      error instanceof Error
+        ? error.message
+        : "Failed to submit contact inquiry";
     return NextResponse.json(
       {
         success: false,

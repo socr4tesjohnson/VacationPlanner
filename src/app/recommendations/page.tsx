@@ -30,7 +30,9 @@ function RecommendationsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
-  const [packages, setPackages] = useState<{ [key: string]: PackageDetails }>({});
+  const [packages, setPackages] = useState<{ [key: string]: PackageDetails }>(
+    {}
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -51,7 +53,7 @@ function RecommendationsContent() {
       const fetchPackages = async () => {
         try {
           const packagePromises = parsed.map((rec: Recommendation) =>
-            fetch(`/api/packages/${rec.packageId}`).then(res => res.json())
+            fetch(`/api/packages/${rec.packageId}`).then((res) => res.json())
           );
           const packageData = await Promise.all(packagePromises);
 
@@ -81,7 +83,9 @@ function RecommendationsContent() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-center py-20">
             <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mb-4"></div>
-            <p className="text-gray-600">Loading your personalized recommendations...</p>
+            <p className="text-gray-600">
+              Loading your personalized recommendations...
+            </p>
           </div>
         </div>
       </div>
@@ -93,7 +97,9 @@ function RecommendationsContent() {
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center py-20">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">No Recommendations Found</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+              No Recommendations Found
+            </h1>
             <p className="text-gray-600 mb-8">{error}</p>
             <Link
               href="/contact"
@@ -119,7 +125,9 @@ function RecommendationsContent() {
             Your Perfect Vacation Matches
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Based on your preferences, our AI has selected these {recommendations.length} vacation packages that best match your needs
+            Based on your preferences, our AI has selected these{" "}
+            {recommendations.length} vacation packages that best match your
+            needs
           </p>
         </div>
 
@@ -161,7 +169,9 @@ function RecommendationsContent() {
                         {pkg && (
                           <div className="flex items-center gap-4 text-sm text-gray-600">
                             <span>📍 {pkg.destination}</span>
-                            <span>🗓️ {pkg.nights} nights / {pkg.days} days</span>
+                            <span>
+                              🗓️ {pkg.nights} nights / {pkg.days} days
+                            </span>
                             <span className="font-semibold text-blue-600">
                               From ${pkg.startingPrice.toLocaleString()}
                             </span>
@@ -173,18 +183,23 @@ function RecommendationsContent() {
                     {/* AI Reasoning */}
                     <div className="bg-blue-50 border-l-4 border-blue-600 p-4 mb-6">
                       <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-                        <span className="text-blue-600">🤖</span> Why This Package?
+                        <span className="text-blue-600">🤖</span> Why This
+                        Package?
                       </h3>
                       <p className="text-gray-700">{rec.reasoning}</p>
                     </div>
 
                     {/* Highlights */}
                     <div className="mb-6">
-                      <h3 className="font-semibold text-gray-900 mb-3">Perfect For You:</h3>
+                      <h3 className="font-semibold text-gray-900 mb-3">
+                        Perfect For You:
+                      </h3>
                       <ul className="space-y-2">
                         {rec.highlights.map((highlight, i) => (
                           <li key={i} className="flex items-start gap-2">
-                            <span className="text-green-600 font-bold mt-1">✓</span>
+                            <span className="text-green-600 font-bold mt-1">
+                              ✓
+                            </span>
                             <span className="text-gray-700">{highlight}</span>
                           </li>
                         ))}
@@ -242,16 +257,20 @@ function RecommendationsContent() {
 
 export default function RecommendationsPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center justify-center py-20">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mb-4"></div>
-            <p className="text-gray-600">Loading your personalized recommendations...</p>
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col items-center justify-center py-20">
+              <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mb-4"></div>
+              <p className="text-gray-600">
+                Loading your personalized recommendations...
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    }>
+      }
+    >
       <RecommendationsContent />
     </Suspense>
   );

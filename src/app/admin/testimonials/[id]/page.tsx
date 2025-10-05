@@ -105,7 +105,9 @@ export default function EditTestimonialPage() {
         approved: testimonial.approved,
       });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load testimonial");
+      setError(
+        err instanceof Error ? err.message : "Failed to load testimonial"
+      );
     } finally {
       setLoadingTestimonial(false);
     }
@@ -164,14 +166,20 @@ export default function EditTestimonialPage() {
 
       router.push("/admin/testimonials");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to update testimonial");
+      setError(
+        err instanceof Error ? err.message : "Failed to update testimonial"
+      );
     } finally {
       setLoading(false);
     }
   };
 
   const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete this testimonial? This action cannot be undone.")) {
+    if (
+      !confirm(
+        "Are you sure you want to delete this testimonial? This action cannot be undone."
+      )
+    ) {
       return;
     }
 
@@ -190,12 +198,16 @@ export default function EditTestimonialPage() {
 
       router.push("/admin/testimonials");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to delete testimonial");
+      setError(
+        err instanceof Error ? err.message : "Failed to delete testimonial"
+      );
     }
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value, type } = e.target;
     if (type === "checkbox") {
@@ -240,9 +252,7 @@ export default function EditTestimonialPage() {
               <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
                 Edit Testimonial
               </h1>
-              <p className="text-gray-600 mt-2">
-                Update testimonial details
-              </p>
+              <p className="text-gray-600 mt-2">Update testimonial details</p>
             </div>
             <button
               onClick={handleDelete}
@@ -262,7 +272,10 @@ export default function EditTestimonialPage() {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow p-6 space-y-6">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white rounded-lg shadow p-6 space-y-6"
+        >
           {/* Customer Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -409,7 +422,10 @@ export default function EditTestimonialPage() {
                 onChange={handleChange}
                 className="w-4 h-4 text-cyan-600 border-gray-300 rounded focus:ring-cyan-500"
               />
-              <label htmlFor="featured" className="ml-2 text-sm font-medium text-gray-700">
+              <label
+                htmlFor="featured"
+                className="ml-2 text-sm font-medium text-gray-700"
+              >
                 Featured Testimonial
               </label>
             </div>
@@ -423,7 +439,10 @@ export default function EditTestimonialPage() {
                 onChange={handleChange}
                 className="w-4 h-4 text-cyan-600 border-gray-300 rounded focus:ring-cyan-500"
               />
-              <label htmlFor="approved" className="ml-2 text-sm font-medium text-gray-700">
+              <label
+                htmlFor="approved"
+                className="ml-2 text-sm font-medium text-gray-700"
+              >
                 Approved
               </label>
             </div>

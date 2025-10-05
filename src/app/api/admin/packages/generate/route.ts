@@ -71,7 +71,8 @@ Return ONLY valid JSON in this exact format:
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : "Failed to generate content",
+        error:
+          error instanceof Error ? error.message : "Failed to generate content",
       },
       { status: 500 }
     );

@@ -44,9 +44,8 @@ export default function TestimonialCard({
 
   // Truncate content if too long
   const shouldTruncate = content.length > 250;
-  const displayContent = shouldTruncate && !isExpanded
-    ? content.substring(0, 250) + "..."
-    : content;
+  const displayContent =
+    shouldTruncate && !isExpanded ? content.substring(0, 250) + "..." : content;
 
   // Format travel date
   const formatDate = (dateString: string | null | undefined) => {
@@ -138,8 +137,19 @@ export default function TestimonialCard({
         <div className="border-t border-gray-100 pt-4 mt-auto space-y-2">
           {packageName && (
             <div className="flex items-start gap-2">
-              <svg className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+              <svg
+                className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                />
               </svg>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-gray-900 line-clamp-1">

@@ -136,7 +136,8 @@ async function main() {
       slug: "disneyland-california-dream",
       type: "disney-park",
       destination: "Disneyland Resort, Anaheim, CA",
-      shortDescription: "5 days exploring both Disneyland and California Adventure",
+      shortDescription:
+        "5 days exploring both Disneyland and California Adventure",
       description:
         "Discover the original Disneyland park and California Adventure with this comprehensive 5-day package. Perfect for families wanting to experience both parks with comfortable accommodations and expert planning assistance.",
       startingPrice: 1499.0,
@@ -214,7 +215,13 @@ async function main() {
       ]),
       featured: true,
       active: true,
-      tags: JSON.stringify(["disney", "cruise", "caribbean", "family", "beach"]),
+      tags: JSON.stringify([
+        "disney",
+        "cruise",
+        "caribbean",
+        "family",
+        "beach",
+      ]),
       category: "Disney Cruise",
       priority: 3,
       images: {
@@ -353,7 +360,13 @@ async function main() {
       ]),
       featured: false,
       active: true,
-      tags: JSON.stringify(["cruise", "bahamas", "family", "beach", "short-trip"]),
+      tags: JSON.stringify([
+        "cruise",
+        "bahamas",
+        "family",
+        "beach",
+        "short-trip",
+      ]),
       category: "Cruises",
       priority: 5,
       images: {
@@ -388,9 +401,11 @@ async function main() {
         communicationPreferences: ["email", "phone"],
         interests: ["disney-parks", "disney-cruise", "family-vacations"],
         travelStyle: "luxury",
-        specialRequests: "Prefers ocean-view rooms, has a 5-year-old daughter who loves princesses",
+        specialRequests:
+          "Prefers ocean-view rooms, has a 5-year-old daughter who loves princesses",
       }),
-      notes: "VIP customer - has booked 3 Disney vacations with us. Always requests princess-themed experiences. Very satisfied with our service.",
+      notes:
+        "VIP customer - has booked 3 Disney vacations with us. Always requests princess-themed experiences. Very satisfied with our service.",
     },
   });
 
@@ -407,7 +422,8 @@ async function main() {
         travelStyle: "family",
         specialRequests: "Budget-conscious, prefers all-inclusive packages",
       }),
-      notes: "First-time customer, interested in Caribbean cruises. Requested detailed itinerary information.",
+      notes:
+        "First-time customer, interested in Caribbean cruises. Requested detailed itinerary information.",
     },
   });
 
@@ -424,7 +440,8 @@ async function main() {
         travelStyle: "adventure",
         specialRequests: "Loves thrill rides and character dining experiences",
       }),
-      notes: "Enthusiastic Disney fan. Looking to visit both Disneyland and Disney World within the next year.",
+      notes:
+        "Enthusiastic Disney fan. Looking to visit both Disneyland and Disney World within the next year.",
     },
   });
 
@@ -439,9 +456,11 @@ async function main() {
         communicationPreferences: ["phone"],
         interests: ["cruises", "nature", "adventure"],
         travelStyle: "adventure",
-        specialRequests: "Interested in Alaska cruise with wildlife viewing opportunities",
+        specialRequests:
+          "Interested in Alaska cruise with wildlife viewing opportunities",
       }),
-      notes: "Prefers phone communication. Wants to celebrate 25th wedding anniversary with Alaska cruise.",
+      notes:
+        "Prefers phone communication. Wants to celebrate 25th wedding anniversary with Alaska cruise.",
     },
   });
 
@@ -458,7 +477,8 @@ async function main() {
         travelStyle: "budget",
         specialRequests: null,
       }),
-      notes: "Inquired about Bahamas cruise 6 months ago but did not book. May follow up in future.",
+      notes:
+        "Inquired about Bahamas cruise 6 months ago but did not book. May follow up in future.",
     },
   });
 
@@ -483,7 +503,8 @@ async function main() {
       children: 1,
       childAges: JSON.stringify([5]),
       budgetRange: "$5000-$7500",
-      message: "We're interested in a magical Christmas vacation at Magic Kingdom for our family. Our daughter loves princesses!",
+      message:
+        "We're interested in a magical Christmas vacation at Magic Kingdom for our family. Our daughter loves princesses!",
       status: "quoted",
       source: "website",
     },
@@ -505,7 +526,8 @@ async function main() {
       children: 2,
       childAges: JSON.stringify([8, 10]),
       budgetRange: "$2500-$5000",
-      message: "Looking for a family-friendly cruise to the Bahamas. This would be our first cruise!",
+      message:
+        "Looking for a family-friendly cruise to the Bahamas. This would be our first cruise!",
       status: "contacted",
       source: "google",
     },
@@ -527,7 +549,8 @@ async function main() {
       children: 0,
       childAges: JSON.stringify([]),
       budgetRange: "$5000-$7500",
-      message: "Planning a Disneyland trip for Halloween time! We're huge Disney fans and want to experience all the seasonal offerings.",
+      message:
+        "Planning a Disneyland trip for Halloween time! We're huge Disney fans and want to experience all the seasonal offerings.",
       status: "new",
       source: "website",
     },
@@ -549,7 +572,8 @@ async function main() {
       children: 0,
       childAges: JSON.stringify([]),
       budgetRange: "$7500-$10000",
-      message: "We want to celebrate our 25th wedding anniversary with an Alaskan cruise. Looking for the best glacier viewing opportunities!",
+      message:
+        "We want to celebrate our 25th wedding anniversary with an Alaskan cruise. Looking for the best glacier viewing opportunities!",
       status: "new",
       source: "referral",
     },
@@ -571,13 +595,16 @@ async function main() {
       children: 3,
       childAges: JSON.stringify([6, 9, 12]),
       budgetRange: "$10000+",
-      message: "Large family interested in Disney Caribbean cruise. Need information about family suites.",
+      message:
+        "Large family interested in Disney Caribbean cruise. Need information about family suites.",
       status: "new",
       source: "phone",
     },
   });
 
-  console.log("✅ Created 5 contact inquiries (4 linked to customers, 1 standalone)");
+  console.log(
+    "✅ Created 5 contact inquiries (4 linked to customers, 1 standalone)"
+  );
 
   // Create Bookings with Travelers
   console.log("Creating bookings...");
@@ -585,7 +612,10 @@ async function main() {
   // Helper function to generate confirmation number
   const generateConfirmationNumber = () => {
     const year = new Date().getFullYear();
-    const randomString = Math.random().toString(36).substring(2, 8).toUpperCase();
+    const randomString = Math.random()
+      .toString(36)
+      .substring(2, 8)
+      .toUpperCase();
     return `VPL-${year}-${randomString}`;
   };
 
@@ -604,8 +634,10 @@ async function main() {
       balanceDue: 3297.0, // $3897 - $600
       adults: 2,
       children: 1,
-      specialRequests: "Princess-themed room decoration, character dining reservation for Cinderella's Royal Table",
-      notes: "VIP customer - ensure all princess experiences are included. Room upgrade approved.",
+      specialRequests:
+        "Princess-themed room decoration, character dining reservation for Cinderella's Royal Table",
+      notes:
+        "VIP customer - ensure all princess experiences are included. Room upgrade approved.",
       travelers: {
         create: [
           {
@@ -653,7 +685,8 @@ async function main() {
       adults: 2,
       children: 2,
       specialRequests: "Family cabin with connecting rooms if possible",
-      notes: "First-time cruisers - provide detailed pre-cruise information packet",
+      notes:
+        "First-time cruisers - provide detailed pre-cruise information packet",
       travelers: {
         create: [
           {
@@ -708,8 +741,10 @@ async function main() {
       balanceDue: 2498.0,
       adults: 2,
       children: 0,
-      specialRequests: "Halloween season - request Oogie Boogie Bash tickets, thrill ride FastPass priority",
-      notes: "Enthusiastic Disney fans - recommend all seasonal offerings and special events",
+      specialRequests:
+        "Halloween season - request Oogie Boogie Bash tickets, thrill ride FastPass priority",
+      notes:
+        "Enthusiastic Disney fans - recommend all seasonal offerings and special events",
       travelers: {
         create: [
           {
@@ -774,7 +809,8 @@ async function main() {
             dateOfBirth: new Date("2020-03-10"),
             age: 4,
             isChild: true,
-            specialNeeds: "Loves Elsa and Anna, requested Frozen character meet",
+            specialNeeds:
+              "Loves Elsa and Anna, requested Frozen character meet",
           },
         ],
       },
@@ -797,7 +833,8 @@ async function main() {
       adults: 2,
       children: 0,
       specialRequests: "Anniversary celebration, glacier viewing priority",
-      notes: "Cancelled due to health concerns. Deposit refunded. Customer wants to rebook for 2026.",
+      notes:
+        "Cancelled due to health concerns. Deposit refunded. Customer wants to rebook for 2026.",
       travelers: {
         create: [
           {
@@ -814,7 +851,8 @@ async function main() {
             dateOfBirth: new Date("1972-09-15"),
             age: 53,
             isChild: false,
-            specialNeeds: "Mobility assistance - wheelchair accessible cabin required",
+            specialNeeds:
+              "Mobility assistance - wheelchair accessible cabin required",
           },
         ],
       },
@@ -839,12 +877,14 @@ async function main() {
       packageId: caribbeanCruise.id,
       rating: 5,
       title: "Absolutely Magical Caribbean Cruise!",
-      content: "Our Disney Caribbean cruise exceeded all expectations! The planning service made everything seamless from start to finish. Our daughter had the time of her life meeting all the characters, and the private island stop at Castaway Cay was pure paradise. We can't wait to book our next adventure!",
+      content:
+        "Our Disney Caribbean cruise exceeded all expectations! The planning service made everything seamless from start to finish. Our daughter had the time of her life meeting all the characters, and the private island stop at Castaway Cay was pure paradise. We can't wait to book our next adventure!",
       travelDate: new Date("2025-01-15"),
       featured: true,
       approved: true,
       active: true,
-      imageUrl: "https://images.unsplash.com/photo-1532274402911-5a369e4c4bb5?w=400",
+      imageUrl:
+        "https://images.unsplash.com/photo-1532274402911-5a369e4c4bb5?w=400",
     },
   });
 
@@ -856,12 +896,14 @@ async function main() {
       packageId: bahamasCruise.id,
       rating: 5,
       title: "Perfect First Cruise Experience!",
-      content: "As first-time cruisers, we were a bit nervous, but the VacationPlanner team made everything so easy! The Bahamas cruise was perfect for our family. The kids loved the water slides and pool activities, and we enjoyed the beautiful beaches. Great value for money and unforgettable memories!",
+      content:
+        "As first-time cruisers, we were a bit nervous, but the VacationPlanner team made everything so easy! The Bahamas cruise was perfect for our family. The kids loved the water slides and pool activities, and we enjoyed the beautiful beaches. Great value for money and unforgettable memories!",
       travelDate: new Date("2025-11-10"),
       featured: true,
       approved: true,
       active: true,
-      imageUrl: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400",
+      imageUrl:
+        "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400",
     },
   });
 
@@ -873,7 +915,8 @@ async function main() {
       packageId: disneylandPackage.id,
       rating: 5,
       title: "Disney Dreams Do Come True!",
-      content: "The Halloween season at Disneyland was spectacular! Our VacationPlanner specialist secured us tickets to Oogie Boogie Bash and made dining reservations at all the best spots. We experienced everything on our bucket list and more. Five stars all the way!",
+      content:
+        "The Halloween season at Disneyland was spectacular! Our VacationPlanner specialist secured us tickets to Oogie Boogie Bash and made dining reservations at all the best spots. We experienced everything on our bucket list and more. Five stars all the way!",
       travelDate: new Date("2025-10-20"),
       featured: true,
       approved: true,
@@ -891,12 +934,14 @@ async function main() {
       packageId: alaskanCruise.id,
       rating: 4,
       title: "Stunning Alaskan Adventure!",
-      content: "The glacier viewing was absolutely breathtaking! While we had to cancel this particular booking, the team was so understanding and helpful. They've already helped us rebook for next year. Can't wait to finally take this amazing trip!",
+      content:
+        "The glacier viewing was absolutely breathtaking! While we had to cancel this particular booking, the team was so understanding and helpful. They've already helped us rebook for next year. Can't wait to finally take this amazing trip!",
       travelDate: null,
       featured: false,
       approved: true,
       active: true,
-      imageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400",
+      imageUrl:
+        "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400",
     },
   });
 
@@ -908,12 +953,14 @@ async function main() {
       packageId: magicKingdom.id,
       rating: 5,
       title: "Magic Kingdom Made Our Christmas!",
-      content: "Our family Christmas vacation at Magic Kingdom was pure magic! The decorations, the shows, the festive atmosphere - everything was perfect. The VacationPlanner team thought of every detail. Our kids are already begging to go back!",
+      content:
+        "Our family Christmas vacation at Magic Kingdom was pure magic! The decorations, the shows, the festive atmosphere - everything was perfect. The VacationPlanner team thought of every detail. Our kids are already begging to go back!",
       travelDate: new Date("2024-12-20"),
       featured: false,
       approved: true,
       active: true,
-      imageUrl: "https://images.unsplash.com/photo-1513026705753-bc3fffca8bf4?w=400",
+      imageUrl:
+        "https://images.unsplash.com/photo-1513026705753-bc3fffca8bf4?w=400",
     },
   });
 
@@ -925,7 +972,8 @@ async function main() {
       packageId: disneylandPackage.id,
       rating: 5,
       title: "Best Family Vacation Ever!",
-      content: "From the moment we arrived at Disneyland to our last day, everything was perfectly planned. The VacationPlanner team secured us the best FastPass times and restaurant reservations. We got to experience everything we wanted without the stress of planning it ourselves!",
+      content:
+        "From the moment we arrived at Disneyland to our last day, everything was perfectly planned. The VacationPlanner team secured us the best FastPass times and restaurant reservations. We got to experience everything we wanted without the stress of planning it ourselves!",
       travelDate: new Date("2025-03-10"),
       featured: false,
       approved: true,
@@ -942,12 +990,14 @@ async function main() {
       packageId: caribbeanCruise.id,
       rating: 5,
       title: "Honeymoon Dreams Come True!",
-      content: "We chose the Disney Caribbean cruise for our honeymoon and it was absolutely perfect! The romantic dinners, the beautiful sunsets, and the incredible service made it unforgettable. Thank you VacationPlanner for helping us start our marriage with such wonderful memories!",
+      content:
+        "We chose the Disney Caribbean cruise for our honeymoon and it was absolutely perfect! The romantic dinners, the beautiful sunsets, and the incredible service made it unforgettable. Thank you VacationPlanner for helping us start our marriage with such wonderful memories!",
       travelDate: new Date("2025-02-14"),
       featured: false,
       approved: true,
       active: true,
-      imageUrl: "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?w=400",
+      imageUrl:
+        "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?w=400",
     },
   });
 
@@ -959,7 +1009,8 @@ async function main() {
       packageId: bahamasCruise.id,
       rating: 4,
       title: "Great Quick Getaway!",
-      content: "The 3-night Bahamas cruise was exactly what we needed - a quick escape from the cold weather! The ship was beautiful, the food was delicious, and the Nassau stop was fantastic. Only wish we had booked a longer cruise! Will definitely use VacationPlanner again.",
+      content:
+        "The 3-night Bahamas cruise was exactly what we needed - a quick escape from the cold weather! The ship was beautiful, the food was delicious, and the Nassau stop was fantastic. Only wish we had booked a longer cruise! Will definitely use VacationPlanner again.",
       travelDate: new Date("2025-01-05"),
       featured: false,
       approved: true,
@@ -977,7 +1028,8 @@ async function main() {
       packageId: alaskanCruise.id,
       rating: 3,
       title: "Good Experience, Some Room for Improvement",
-      content: "The Alaskan cruise was beautiful and the VacationPlanner team was helpful with booking. The glacier views were stunning. However, some of the shore excursions we booked separately didn't quite meet our expectations. Overall a good trip, but not everything was perfect.",
+      content:
+        "The Alaskan cruise was beautiful and the VacationPlanner team was helpful with booking. The glacier views were stunning. However, some of the shore excursions we booked separately didn't quite meet our expectations. Overall a good trip, but not everything was perfect.",
       travelDate: new Date("2024-08-15"),
       featured: false,
       approved: true,
@@ -995,7 +1047,8 @@ async function main() {
       packageId: bahamasCruise.id,
       rating: 5,
       title: "Considering a Cruise!",
-      content: "I'm very interested in booking a Bahamas cruise with VacationPlanner. The packages look amazing and I've heard great things from friends. Looking forward to working with the team!",
+      content:
+        "I'm very interested in booking a Bahamas cruise with VacationPlanner. The packages look amazing and I've heard great things from friends. Looking forward to working with the team!",
       travelDate: null,
       featured: false,
       approved: false, // Not yet approved
@@ -1011,7 +1064,9 @@ async function main() {
   console.log("  - Ratings: 8 five-star, 1 four-star, 1 three-star");
 
   console.log("✅ Database seeded successfully!");
-  console.log(`Created 3 users, 5 vacation packages, 5 customers, 5 contact inquiries, 5 bookings with travelers, and 10 testimonials`);
+  console.log(
+    `Created 3 users, 5 vacation packages, 5 customers, 5 contact inquiries, 5 bookings with travelers, and 10 testimonials`
+  );
 }
 
 main()

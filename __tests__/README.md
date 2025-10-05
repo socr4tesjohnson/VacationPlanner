@@ -36,21 +36,25 @@ Current test coverage includes:
 ## Running Tests
 
 ### Run All Tests
+
 ```bash
 npm test
 ```
 
 ### Watch Mode (for development)
+
 ```bash
 npm run test:watch
 ```
 
 ### Generate Coverage Report
+
 ```bash
 npm run test:coverage
 ```
 
 ### CI/CD Mode
+
 ```bash
 npm run test:ci
 ```
@@ -81,14 +85,14 @@ __tests__/
 Unit tests verify individual functions in isolation. Example:
 
 ```typescript
-import { yourFunction } from '@/lib/your-module'
+import { yourFunction } from "@/lib/your-module";
 
-describe('yourFunction', () => {
-  it('should do something specific', () => {
-    const result = yourFunction('input')
-    expect(result).toBe('expected output')
-  })
-})
+describe("yourFunction", () => {
+  it("should do something specific", () => {
+    const result = yourFunction("input");
+    expect(result).toBe("expected output");
+  });
+});
 ```
 
 ### API Route Tests
@@ -96,34 +100,34 @@ describe('yourFunction', () => {
 API route tests verify endpoint behavior including success cases, error handling, and validation:
 
 ```typescript
-import { POST } from '@/app/api/your-route/route'
-import { prismaMock } from '../../utils/prisma-mock'
-import { NextRequest } from 'next/server'
+import { POST } from "@/app/api/your-route/route";
+import { prismaMock } from "../../utils/prisma-mock";
+import { NextRequest } from "next/server";
 
-describe('POST /api/your-route', () => {
+describe("POST /api/your-route", () => {
   beforeEach(() => {
-    jest.clearAllMocks()
-  })
+    jest.clearAllMocks();
+  });
 
-  it('should handle request successfully', async () => {
+  it("should handle request successfully", async () => {
     // Setup mocks
-    prismaMock.model.findUnique.mockResolvedValue(mockData)
+    prismaMock.model.findUnique.mockResolvedValue(mockData);
 
     // Create request
     const request = createMockRequest({
-      method: 'POST',
-      body: { data: 'value' },
-    }) as NextRequest
+      method: "POST",
+      body: { data: "value" },
+    }) as NextRequest;
 
     // Execute
-    const response = await POST(request)
-    const data = await response.json()
+    const response = await POST(request);
+    const data = await response.json();
 
     // Assert
-    expect(response.status).toBe(200)
-    expect(data).toMatchObject({ success: true })
-  })
-})
+    expect(response.status).toBe(200);
+    expect(data).toMatchObject({ success: true });
+  });
+});
 ```
 
 ### Component Tests
@@ -158,46 +162,48 @@ describe('YourComponent', () => {
 ### 1. Follow AAA Pattern (Arrange, Act, Assert)
 
 ```typescript
-it('should calculate total correctly', () => {
+it("should calculate total correctly", () => {
   // Arrange
-  const items = [10, 20, 30]
+  const items = [10, 20, 30];
 
   // Act
-  const total = calculateTotal(items)
+  const total = calculateTotal(items);
 
   // Assert
-  expect(total).toBe(60)
-})
+  expect(total).toBe(60);
+});
 ```
 
 ### 2. Test Error Cases, Not Just Happy Paths
 
 ```typescript
-describe('validateInput', () => {
-  it('should accept valid input', () => {
-    expect(validateInput('valid')).toBe(true)
-  })
+describe("validateInput", () => {
+  it("should accept valid input", () => {
+    expect(validateInput("valid")).toBe(true);
+  });
 
-  it('should reject empty input', () => {
-    expect(validateInput('')).toBe(false)
-  })
+  it("should reject empty input", () => {
+    expect(validateInput("")).toBe(false);
+  });
 
-  it('should reject null input', () => {
-    expect(validateInput(null)).toBe(false)
-  })
-})
+  it("should reject null input", () => {
+    expect(validateInput(null)).toBe(false);
+  });
+});
 ```
 
 ### 3. Use Descriptive Test Names
 
 ✅ **Good:**
+
 ```typescript
-it('should return 401 when user provides invalid credentials', () => {})
+it("should return 401 when user provides invalid credentials", () => {});
 ```
 
 ❌ **Bad:**
+
 ```typescript
-it('test login', () => {})
+it("test login", () => {});
 ```
 
 ### 4. Keep Tests Independent
@@ -206,13 +212,14 @@ Each test should be able to run independently without relying on other tests. Us
 
 ```typescript
 beforeEach(() => {
-  jest.clearAllMocks()
-})
+  jest.clearAllMocks();
+});
 ```
 
 ### 5. Mock External Dependencies
 
 Always mock:
+
 - Database calls (Prisma)
 - API requests (fetch)
 - Third-party libraries
@@ -229,13 +236,14 @@ Each test should verify a single behavior or outcome.
 Use factory functions to create consistent test data:
 
 ```typescript
-import { createTestUser, createTestSession } from '../utils/test-data-factory'
+import { createTestUser, createTestSession } from "../utils/test-data-factory";
 
-const user = createTestUser({ email: 'custom@example.com' })
-const session = createTestSession(user.id)
+const user = createTestUser({ email: "custom@example.com" });
+const session = createTestSession(user.id);
 ```
 
 Available factory functions:
+
 - `createTestUser(overrides?)` - Create a test user
 - `createTestAdmin(overrides?)` - Create an admin user
 - `createTestManager(overrides?)` - Create a manager user
@@ -250,11 +258,11 @@ Available factory functions:
 The Prisma client is automatically mocked in all tests:
 
 ```typescript
-import { prismaMock } from '../utils/prisma-mock'
+import { prismaMock } from "../utils/prisma-mock";
 
 // Mock database responses
-prismaMock.user.findUnique.mockResolvedValue(user)
-prismaMock.session.create.mockResolvedValue(session)
+prismaMock.user.findUnique.mockResolvedValue(user);
+prismaMock.session.create.mockResolvedValue(session);
 ```
 
 ## Coverage Requirements
@@ -271,6 +279,7 @@ The project requires minimum 70% coverage across all metrics:
 ### View Coverage Report
 
 After running `npm run test:coverage`, open:
+
 ```
 coverage/lcov-report/index.html
 ```
@@ -318,7 +327,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: "18"
 
       - name: Install dependencies
         run: npm ci
@@ -364,8 +373,8 @@ Ensure you're using Node 18+ or polyfill fetch for tests.
 Import the Prisma mock before the module under test:
 
 ```typescript
-import { prismaMock } from '../utils/prisma-mock'
-import { yourFunction } from '@/lib/your-module'
+import { prismaMock } from "../utils/prisma-mock";
+import { yourFunction } from "@/lib/your-module";
 ```
 
 #### 4. "Tests timeout"
@@ -373,7 +382,7 @@ import { yourFunction } from '@/lib/your-module'
 Increase Jest timeout in problematic tests:
 
 ```typescript
-jest.setTimeout(10000) // 10 seconds
+jest.setTimeout(10000); // 10 seconds
 ```
 
 ## Adding New Test Files
@@ -411,6 +420,7 @@ Before submitting a PR, ensure:
 **Questions or Issues?**
 
 If you encounter problems with the test suite, please:
+
 1. Check this README
 2. Review existing test files for examples
 3. Open an issue with detailed error messages

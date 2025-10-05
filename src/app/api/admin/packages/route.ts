@@ -13,7 +13,6 @@ function generateSlug(title: string): string {
 
 async function handlePOST(request: NextRequest) {
   try {
-
     const formData = await request.formData();
 
     // Extract fields
@@ -71,7 +70,12 @@ async function handlePOST(request: NextRequest) {
 
     if (imageFiles.length > 0) {
       // Ensure upload directory exists
-      const uploadDir = path.join(process.cwd(), "public", "uploads", "packages");
+      const uploadDir = path.join(
+        process.cwd(),
+        "public",
+        "uploads",
+        "packages"
+      );
       try {
         await mkdir(uploadDir, { recursive: true });
       } catch (err) {
@@ -116,7 +120,8 @@ async function handlePOST(request: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : "Failed to create package",
+        error:
+          error instanceof Error ? error.message : "Failed to create package",
       },
       { status: 500 }
     );

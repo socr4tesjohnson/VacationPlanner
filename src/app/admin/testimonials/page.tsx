@@ -106,7 +106,9 @@ export default function AdminTestimonialsPage() {
         throw new Error("Failed to update testimonial");
       }
 
-      setSuccessMessage(`Testimonial ${!currentStatus ? "approved" : "unapproved"}!`);
+      setSuccessMessage(
+        `Testimonial ${!currentStatus ? "approved" : "unapproved"}!`
+      );
       setTimeout(() => setSuccessMessage(""), 3000);
       fetchTestimonials();
     } catch (err) {
@@ -131,7 +133,9 @@ export default function AdminTestimonialsPage() {
         throw new Error("Failed to update testimonial");
       }
 
-      setSuccessMessage(`Testimonial ${!currentStatus ? "featured" : "unfeatured"}!`);
+      setSuccessMessage(
+        `Testimonial ${!currentStatus ? "featured" : "unfeatured"}!`
+      );
       setTimeout(() => setSuccessMessage(""), 3000);
       fetchTestimonials();
     } catch (err) {
@@ -151,7 +155,8 @@ export default function AdminTestimonialsPage() {
     if (filterApproved === "unapproved" && testimonial.approved) return false;
     if (filterFeatured === "featured" && !testimonial.featured) return false;
     if (filterFeatured === "not-featured" && testimonial.featured) return false;
-    if (filterRating !== "all" && testimonial.rating !== parseInt(filterRating)) return false;
+    if (filterRating !== "all" && testimonial.rating !== parseInt(filterRating))
+      return false;
     return true;
   });
 
@@ -187,7 +192,9 @@ export default function AdminTestimonialsPage() {
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <div className="bg-white rounded-lg shadow p-6">
-              <div className="text-sm text-gray-600 mb-1">Total Testimonials</div>
+              <div className="text-sm text-gray-600 mb-1">
+                Total Testimonials
+              </div>
               <div className="text-3xl font-bold text-gray-900">
                 {testimonials.length}
               </div>
@@ -222,7 +229,10 @@ export default function AdminTestimonialsPage() {
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6 flex justify-between items-center">
             <span>{error}</span>
-            <button onClick={() => setError("")} className="text-red-700 hover:text-red-900">
+            <button
+              onClick={() => setError("")}
+              className="text-red-700 hover:text-red-900"
+            >
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -231,7 +241,10 @@ export default function AdminTestimonialsPage() {
         {successMessage && (
           <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6 flex justify-between items-center">
             <span>{successMessage}</span>
-            <button onClick={() => setSuccessMessage("")} className="text-green-700 hover:text-green-900">
+            <button
+              onClick={() => setSuccessMessage("")}
+              className="text-green-700 hover:text-green-900"
+            >
               <X className="w-5 h-5" />
             </button>
           </div>

@@ -13,12 +13,14 @@ The middleware system consists of two layers:
 **Purpose**: First line of defense, runs on all admin routes before they reach the API handlers.
 
 **Responsibilities**:
+
 - Checks for the presence of authentication tokens
 - Blocks unauthenticated requests early
 - Redirects unauthenticated users to login page (for UI routes)
 - Returns 401 Unauthorized for API routes without tokens
 
 **Limitations**:
+
 - Runs on Edge Runtime (limited Node.js API access)
 - Cannot use Prisma or bcrypt directly
 - Only performs basic token presence checks
@@ -29,6 +31,7 @@ The middleware system consists of two layers:
 **Purpose**: Full authentication and authorization validation for API routes.
 
 **Responsibilities**:
+
 - Validates session tokens against the database
 - Checks if user accounts are active
 - Enforces role-based access control (RBAC)
@@ -38,6 +41,7 @@ The middleware system consists of two layers:
 **Functions**:
 
 #### `getUserFromRequest(request: NextRequest)`
+
 Extracts and validates the user from the session token.
 
 ```typescript
@@ -48,6 +52,7 @@ if (!user) {
 ```
 
 #### `requireAuth()`
+
 Middleware function that requires any authenticated user.
 
 ```typescript
@@ -55,13 +60,18 @@ export const GET = withMiddleware(handleGET, requireAuth());
 ```
 
 #### `requireRole(...roles: UserRole[])`
+
 Middleware function that requires specific role(s).
 
 ```typescript
-export const POST = withMiddleware(handlePOST, requireRole(UserRole.ADMIN, UserRole.MANAGER));
+export const POST = withMiddleware(
+  handlePOST,
+  requireRole(UserRole.ADMIN, UserRole.MANAGER)
+);
 ```
 
 #### `requireAdmin()`
+
 Shorthand for `requireRole(UserRole.ADMIN)`.
 
 ```typescript
@@ -69,6 +79,7 @@ export const POST = withMiddleware(handlePOST, requireAdmin());
 ```
 
 #### `requireManager()`
+
 Allows both ADMIN and MANAGER roles.
 
 ```typescript
@@ -76,6 +87,7 @@ export const GET = withMiddleware(handleGET, requireManager());
 ```
 
 #### `withMiddleware(handler, ...middlewares)`
+
 Wraps a route handler with one or more middleware functions.
 
 ```typescript
@@ -87,13 +99,11 @@ export const POST = withMiddleware(handlePOST, requireAdmin());
 ```
 
 #### `composeMiddleware(...middlewares)`
+
 Composes multiple middleware functions into one.
 
 ```typescript
-const authAndLog = composeMiddleware(
-  requireAuth(),
-  loggingMiddleware()
-);
+const authAndLog = composeMiddleware(requireAuth(), loggingMiddleware());
 
 export const GET = withMiddleware(handleGET, authAndLog);
 ```
@@ -111,6 +121,7 @@ The system defines three user roles:
 ### Admin-Only Routes (require ADMIN role):
 
 **Package Management**:
+
 - `POST /api/admin/packages` - Create vacation packages
 - `POST /api/admin/packages/generate` - Generate package content with AI
 - `POST /api/admin/packages/scan-disney` - Scan Disney website for offers
@@ -121,6 +132,7 @@ The system defines three user roles:
 ### Authenticated Routes (require any logged-in user):
 
 **Inquiry Management**:
+
 - `GET /api/admin/inquiries` - List all inquiries
 - `GET /api/admin/inquiries/[id]` - Get inquiry details
 - `PATCH /api/admin/inquiries/[id]` - Update inquiry status
@@ -191,7 +203,9 @@ async function handleGET(request: NextRequest) {
 The middleware system returns consistent error responses:
 
 ### 401 Unauthorized
+
 Returned when:
+
 - No authentication token is provided
 - Token is invalid or expired
 - User account is inactive
@@ -204,7 +218,9 @@ Returned when:
 ```
 
 ### 403 Forbidden
+
 Returned when:
+
 - User is authenticated but lacks required role
 
 ```json
@@ -216,7 +232,9 @@ Returned when:
 ```
 
 ### 500 Internal Server Error
+
 Returned when:
+
 - An unexpected error occurs during authentication
 
 ```json
@@ -231,11 +249,13 @@ Returned when:
 ### Manual Testing with cURL
 
 1. **Test unauthenticated access** (should return 401):
+
 ```bash
 curl -X GET http://localhost:3000/api/admin/inquiries
 ```
 
 2. **Login as admin**:
+
 ```bash
 curl -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
@@ -243,12 +263,14 @@ curl -X POST http://localhost:3000/api/auth/login \
 ```
 
 3. **Access protected route with token**:
+
 ```bash
 curl -X GET http://localhost:3000/api/admin/inquiries \
   -H "Authorization: Bearer YOUR_TOKEN_HERE"
 ```
 
 4. **Test admin-only route**:
+
 ```bash
 curl -X POST http://localhost:3000/api/admin/packages/generate \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
@@ -267,6 +289,7 @@ curl -X POST http://localhost:3000/api/admin/packages/generate \
 ### Test Scenarios
 
 See `src/lib/test-middleware.ts` for comprehensive test scenarios including:
+
 - Unauthenticated access
 - Invalid token handling
 - Role-based authorization
@@ -287,7 +310,9 @@ See `src/lib/test-middleware.ts` for comprehensive test scenarios including:
 ## Configuration
 
 ### Session Duration
+
 Modify in `src/lib/auth.ts`:
+
 ```typescript
 export function getSessionExpiration(): Date {
   const expiresAt = new Date();
@@ -297,12 +322,14 @@ export function getSessionExpiration(): Date {
 ```
 
 ### Protected Route Patterns
+
 Modify in `src/middleware.ts`:
+
 ```typescript
 export const config = {
   matcher: [
-    "/admin/:path*",      // All admin pages
-    "/api/admin/:path*",  // All admin API routes
+    "/admin/:path*", // All admin pages
+    "/api/admin/:path*", // All admin API routes
   ],
 };
 ```
@@ -310,21 +337,25 @@ export const config = {
 ## Troubleshooting
 
 ### "Authentication required" on valid requests
+
 - Check that the token is being sent correctly
 - Verify the token hasn't expired (check database sessions table)
 - Ensure the Authorization header format: `Bearer <token>`
 
 ### "Insufficient permissions" errors
+
 - Verify the user's role in the database
 - Check the route's required role(s)
 - Ensure the user account is active
 
 ### Edge Runtime warnings
+
 - The Next.js middleware (src/middleware.ts) runs on Edge Runtime
 - It cannot use Prisma or bcrypt directly
 - Full validation happens in API route middleware instead
 
 ### Session not persisting
+
 - Check cookie settings (HttpOnly, Secure, SameSite)
 - Verify session token is being saved in cookies
 - Check browser cookie storage
@@ -354,6 +385,7 @@ export const config = {
 ## Support
 
 For questions or issues:
+
 1. Check this documentation
 2. Review test scenarios in `src/lib/test-middleware.ts`
 3. Check console logs for detailed error messages
