@@ -4,11 +4,13 @@ import { withMiddleware, requireAuth } from "@/lib/middleware";
 
 async function handleGET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
+
     const inquiry = await prisma.contactInquiry.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!inquiry) {
@@ -20,7 +22,12 @@ async function handleGET(
 
     return NextResponse.json({
       success: true,
-      inquiry,
+      inquiry: {
+        ...inquiry,
+        quotedAmount: inquiry.quotedAmount?.toNumber() ?? null,
+        commissionRate: inquiry.commissionRate?.toNumber() ?? null,
+        commissionAmount: inquiry.commissionAmount?.toNumber() ?? null,
+      },
     });
   } catch (error) {
     console.error("Error fetching inquiry:", error);
@@ -33,25 +40,51 @@ async function handleGET(
 
 async function handlePATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { status } = await request.json();
+    const { id } = await params;
+    const body = await request.json();
+    const { status, notes, quotedAmount, commissionRate, commissionAmount, checklist } = body;
 
-    // Validate status
-    const validStatuses = ["new", "contacted", "quoted", "booked", "closed"];
-    if (!validStatuses.includes(status)) {
-      return NextResponse.json({ error: "Invalid status" }, { status: 400 });
+    // Validate status if provided
+    if (status !== undefined) {
+      const validStatuses = ["new", "contacted", "quoted", "booked", "closed"];
+      if (!validStatuses.includes(status)) {
+        return NextResponse.json({ error: "Invalid status" }, { status: 400 });
+      }
     }
 
+    // Build dynamic update object with only provided fields
+    const updateData: {
+      status?: string;
+      notes?: string;
+      quotedAmount?: number;
+      commissionRate?: number;
+      commissionAmount?: number;
+      checklist?: string;
+    } = {};
+
+    if (status !== undefined) updateData.status = status;
+    if (notes !== undefined) updateData.notes = notes;
+    if (quotedAmount !== undefined) updateData.quotedAmount = quotedAmount;
+    if (commissionRate !== undefined) updateData.commissionRate = commissionRate;
+    if (commissionAmount !== undefined) updateData.commissionAmount = commissionAmount;
+    if (checklist !== undefined) updateData.checklist = checklist;
+
     const inquiry = await prisma.contactInquiry.update({
-      where: { id: params.id },
-      data: { status },
+      where: { id },
+      data: updateData,
     });
 
     return NextResponse.json({
       success: true,
-      inquiry,
+      inquiry: {
+        ...inquiry,
+        quotedAmount: inquiry.quotedAmount?.toNumber() ?? null,
+        commissionRate: inquiry.commissionRate?.toNumber() ?? null,
+        commissionAmount: inquiry.commissionAmount?.toNumber() ?? null,
+      },
     });
   } catch (error) {
     console.error("Error updating inquiry:", error);

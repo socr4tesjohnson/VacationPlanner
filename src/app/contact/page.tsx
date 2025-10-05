@@ -94,10 +94,12 @@ export default function ContactPage() {
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
-          <p className="text-gray-600">
-            Ready to plan your dream vacation? Fill out the form below and
-            our AI will find the perfect packages for you.
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">Let's Plan Your Dream Vacation!</h1>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            I'm Laura Coleman, and I can't wait to help you create magical memories! Share your travel dreams below, and I'll reach out within 24 hours with personalized recommendations tailored just for your family.
+          </p>
+          <p className="text-sm text-gray-500 mt-3">
+            No pressure, no obligation — just great vacation ideas designed around you!
           </p>
         </div>
 
@@ -112,11 +114,10 @@ export default function ContactPage() {
             <div className="flex flex-col items-center justify-center">
               <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mb-4"></div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                🤖 AI is analyzing your preferences...
+                ✨ Finding Your Perfect Vacation...
               </h3>
               <p className="text-gray-600 text-center">
-                Our AI travel expert is finding the perfect vacation packages
-                just for you
+                I'm analyzing your preferences to create the best recommendations just for you!
               </p>
             </div>
           </div>
@@ -127,7 +128,7 @@ export default function ContactPage() {
           >
           {/* Personal Information */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Personal Information</h2>
+            <h2 className="text-2xl font-bold mb-4 text-gray-900">Tell Me About You</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -197,7 +198,7 @@ export default function ContactPage() {
 
           {/* Trip Details */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Trip Details</h2>
+            <h2 className="text-2xl font-bold mb-4 text-gray-900">Your Dream Vacation Details</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -250,7 +251,7 @@ export default function ContactPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Adults
+                  How many adults?
                 </label>
                 <input
                   {...register("adults", { valueAsNumber: true })}
@@ -267,7 +268,7 @@ export default function ContactPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Children
+                  How many children?
                 </label>
                 <input
                   {...register("children", { valueAsNumber: true })}
@@ -279,13 +280,13 @@ export default function ContactPage() {
 
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Budget Range
+                  What's your approximate budget?
                 </label>
                 <select
                   {...register("budgetRange")}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
-                  <option value="">Select budget range</option>
+                  <option value="">I'm not sure yet</option>
                   <option value="under-2000">Under $2,000</option>
                   <option value="2000-5000">$2,000 - $5,000</option>
                   <option value="5000-10000">$5,000 - $10,000</option>
@@ -311,13 +312,13 @@ export default function ContactPage() {
           {/* Message */}
           <div className="mb-8">
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Tell us about your dream vacation *
+              Tell me about your dream vacation! *
             </label>
             <textarea
               {...register("message")}
               rows={5}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="What are you looking for in your vacation? Any special requests or requirements?"
+              placeholder="Disney World? Universal? A magical cruise? Share your vision and any special occasions, must-dos, or concerns you have. The more I know, the better I can help!"
             />
             {errors.message && (
               <p className="text-red-500 text-sm mt-1">
@@ -330,18 +331,45 @@ export default function ContactPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
-            {isSubmitting ? "Submitting..." : "Send Inquiry"}
+            {isSubmitting ? "Sending to Laura..." : "Send My Info to Laura"}
           </button>
+          <p className="text-center text-sm text-gray-500 mt-4">
+            ✓ Laura responds within 24 hours &nbsp;·&nbsp; ✓ No obligation &nbsp;·&nbsp; ✓ Your info is secure
+          </p>
           </form>
         )}
 
-        <div className="mt-8 text-center text-gray-600">
-          <p className="mb-2">
-            Or reach us directly:
+        <div className="mt-12 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-8 text-center">
+          <h3 className="text-xl font-bold text-gray-900 mb-3">Prefer to Chat Directly?</h3>
+          <p className="text-gray-700 mb-4">
+            I'd love to hear from you! Find me on social media or through Whitney World Travel.
           </p>
-          <p>Email: info@vacationplanner.com | Phone: (555) 123-4567</p>
+          <div className="flex justify-center gap-4 mb-4">
+            <a
+              href="https://www.facebook.com/61558329989600"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+              Message on Facebook
+            </a>
+            <a
+              href="https://whitneyworldtravel.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+              </svg>
+              Whitney World Travel
+            </a>
+          </div>
         </div>
       </div>
     </div>

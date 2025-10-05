@@ -94,7 +94,7 @@ Return ONLY a valid JSON array with exactly 3 recommendations in this format:
 Order recommendations from best match to third best match.`;
 
     const message = await anthropic.messages.create({
-      model: "claude-sonnet-4-5-20250929",
+      model: "claude-3-5-sonnet-20241022",
       max_tokens: 2000,
       messages: [
         {

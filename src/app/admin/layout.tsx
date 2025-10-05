@@ -16,7 +16,7 @@ export default function AdminLayout({
       <div className="min-h-screen bg-gray-50">
         {/* Admin Header */}
         <div className="bg-white shadow-md border-b-2 border-cyan-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="w-full px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               {/* Logo & Navigation */}
               <div className="flex items-center space-x-8">
@@ -24,7 +24,7 @@ export default function AdminLayout({
                   href="/"
                   className="text-2xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent hover:from-cyan-700 hover:to-blue-700 transition-all"
                 >
-                  🌴 Vacation Planner
+                  Laura Coleman Travel Admin
                 </Link>
                 <nav className="hidden md:flex space-x-4">
                   <Link

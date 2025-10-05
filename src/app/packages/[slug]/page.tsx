@@ -169,7 +169,7 @@ export default async function PackageDetailPage({
                 href="/contact"
                 className="block w-full bg-blue-600 text-white text-center py-3 rounded-lg font-semibold hover:bg-blue-700 transition mb-3"
               >
-                Request a Quote
+                Plan This Trip with Laura
               </Link>
 
               <Link

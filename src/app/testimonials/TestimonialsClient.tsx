@@ -341,7 +341,7 @@ export default function TestimonialsClient() {
               href="/contact"
               className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-blue-600 transform hover:scale-105 transition-all shadow-lg inline-block focus:outline-none focus:ring-4 focus:ring-white/50"
             >
-              Contact Us Today
+              Start Planning with Laura
             </a>
           </div>
         </div>

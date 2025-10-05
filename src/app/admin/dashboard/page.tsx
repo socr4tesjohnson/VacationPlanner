@@ -20,38 +20,73 @@ interface Inquiry {
   packageTitle: string | null;
 }
 
+interface Booking {
+  id: string;
+  confirmationNumber: string;
+  departureDate: string;
+  returnDate: string;
+  status: string;
+  customer: {
+    firstName: string;
+    lastName: string;
+  };
+}
+
 export default function AdminDashboard() {
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
+  const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [filter, setFilter] = useState<string>("all");
 
   useEffect(() => {
-    fetchInquiries();
+    fetchData();
   }, []);
 
-  const fetchInquiries = async () => {
+  const fetchData = async () => {
     try {
       const token = localStorage.getItem("session_token");
-      const response = await fetch("/api/admin/inquiries", {
+
+      // Fetch inquiries
+      const inquiriesResponse = await fetch("/api/admin/inquiries", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (response.status === 401) {
+      if (inquiriesResponse.status === 401) {
         setError("Authentication failed. Please log in again.");
         return;
       }
 
-      const data = await response.json();
-      setInquiries(data.inquiries || []);
+      const inquiriesData = await inquiriesResponse.json();
+      setInquiries(inquiriesData.inquiries || []);
+
+      // Fetch bookings
+      const bookingsResponse = await fetch("/api/admin/bookings", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (bookingsResponse.ok) {
+        const bookingsData = await bookingsResponse.json();
+        setBookings(bookingsData.bookings || []);
+      }
     } catch (err) {
-      setError("Failed to load inquiries");
+      setError("Failed to load data");
     } finally {
       setLoading(false);
     }
   };
+
+  // Calculate currently traveling customers
+  const currentlyTraveling = bookings.filter(booking => {
+    const now = new Date();
+    const departure = new Date(booking.departureDate);
+    const returnDate = new Date(booking.returnDate);
+    return booking.status === 'CONFIRMED' && departure <= now && now <= returnDate;
+  });
 
   const formatDate = (dateString: string | null) => {
     if (!dateString) return "Not specified";
@@ -88,40 +123,78 @@ export default function AdminDashboard() {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8 py-8">
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
             {error}
           </div>
         )}
 
+        {/* Page Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Client Inquiries Dashboard</h1>
+          <p className="text-gray-600 mt-2">Manage and track all vacation planning inquiries</p>
+        </div>
+
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600 mb-1">Total Inquiries</div>
-            <div className="text-3xl font-bold text-gray-900">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <div className="text-xs sm:text-sm text-gray-600 mb-1">Total Inquiries</div>
+            <div className="text-2xl sm:text-3xl font-bold text-gray-900">
               {inquiries.length}
             </div>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600 mb-1">New</div>
-            <div className="text-3xl font-bold text-blue-600">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <div className="text-xs sm:text-sm text-gray-600 mb-1">New</div>
+            <div className="text-2xl sm:text-3xl font-bold text-blue-600">
               {inquiries.filter((i) => i.status === "new").length}
             </div>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600 mb-1">Contacted</div>
-            <div className="text-3xl font-bold text-yellow-600">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <div className="text-xs sm:text-sm text-gray-600 mb-1">Contacted</div>
+            <div className="text-2xl sm:text-3xl font-bold text-yellow-600">
               {inquiries.filter((i) => i.status === "contacted").length}
             </div>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600 mb-1">Booked</div>
-            <div className="text-3xl font-bold text-green-600">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <div className="text-xs sm:text-sm text-gray-600 mb-1">Booked</div>
+            <div className="text-2xl sm:text-3xl font-bold text-green-600">
               {inquiries.filter((i) => i.status === "booked").length}
             </div>
           </div>
+          <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg shadow-lg p-4 sm:p-6">
+            <div className="text-xs sm:text-sm text-white/90 mb-1 flex items-center gap-1">
+              ✈️ On Trip Now
+            </div>
+            <div className="text-2xl sm:text-3xl font-bold text-white">
+              {currentlyTraveling.length}
+            </div>
+          </div>
         </div>
+
+        {/* Currently Traveling Section */}
+        {currentlyTraveling.length > 0 && (
+          <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border-2 border-purple-200 rounded-lg p-6 mb-8">
+            <h3 className="text-lg font-bold text-purple-900 mb-4 flex items-center gap-2">
+              ✈️ Currently Traveling ({currentlyTraveling.length})
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {currentlyTraveling.map((booking) => (
+                <div key={booking.id} className="bg-white rounded-lg p-4 shadow">
+                  <div className="font-semibold text-gray-900">
+                    {booking.customer.firstName} {booking.customer.lastName}
+                  </div>
+                  <div className="text-sm text-gray-600 mt-1">
+                    {booking.confirmationNumber}
+                  </div>
+                  <div className="text-xs text-purple-600 mt-2">
+                    Returns: {formatDate(booking.returnDate)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Filter */}
         <div className="bg-white rounded-lg shadow mb-6 p-4">
@@ -175,25 +248,25 @@ export default function AdminDashboard() {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="hidden md:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Contact
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="hidden lg:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Trip Details
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="hidden xl:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Budget
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="hidden sm:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Submitted
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -211,15 +284,19 @@ export default function AdminDashboard() {
                 ) : (
                   filteredInquiries.map((inquiry) => (
                     <tr key={inquiry.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-4 sm:px-6 py-4">
                         <div className="text-sm font-medium text-gray-900">
                           {inquiry.firstName} {inquiry.lastName}
                         </div>
-                        <div className="text-sm text-gray-500">
+                        <div className="text-xs sm:text-sm text-gray-500">
                           {inquiry.adults} adult(s), {inquiry.children} child(ren)
                         </div>
+                        {/* Show on mobile only */}
+                        <div className="md:hidden text-xs text-gray-500 mt-1">
+                          {inquiry.email}
+                        </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900">
                           {inquiry.email}
                         </div>
@@ -227,7 +304,7 @@ export default function AdminDashboard() {
                           {inquiry.phone}
                         </div>
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="hidden lg:table-cell px-6 py-4">
                         <div className="text-sm text-gray-900">
                           {formatDate(inquiry.startDate)} - {formatDate(inquiry.endDate)}
                         </div>
@@ -237,29 +314,29 @@ export default function AdminDashboard() {
                           </div>
                         )}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="hidden xl:table-cell px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900">
                           {inquiry.budgetRange || "Not specified"}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
                         <span
-                          className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(
+                          className={`px-2 sm:px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(
                             inquiry.status
                           )}`}
                         >
                           {inquiry.status}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="hidden sm:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {new Date(inquiry.createdAt).toLocaleDateString()}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
+                      <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm">
                         <Link
                           href={`/admin/inquiries/${inquiry.id}`}
                           className="text-blue-600 hover:text-blue-900 font-medium"
                         >
-                          View Details
+                          View
                         </Link>
                       </td>
                     </tr>

@@ -74,23 +74,23 @@ export default async function Home() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="inline-block mb-4 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/20">
-            <span className="text-sm font-semibold tracking-wide">Expert Travel Planning Since 2010</span>
+            <span className="text-sm font-semibold tracking-wide">with Whitney World Travel</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
-            Your Dream Vacation<br />
+            Your Personal Disney<br />
             <span className="bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent">
-              Starts Here
+              & Universal Expert
             </span>
           </h1>
           <p className="text-lg md:text-xl mb-12 max-w-2xl mx-auto text-white leading-relaxed">
-            Discover unforgettable Disney experiences and luxury cruises with our personalized planning services
+            I'm Laura Coleman, and I create stress-free, magical vacations perfectly tailored to your family's dreams and budget
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild variant="primary" size="lg" className="bg-white text-blue-700 hover:bg-blue-50 focus:ring-white/50 shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5">
               <Link href="/vacations">Explore Vacations</Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/10 backdrop-blur-sm focus:ring-white/50 transform hover:-translate-y-0.5">
-              <Link href="/contact">Get in Touch</Link>
+              <Link href="/contact">Start Planning with Laura</Link>
             </Button>
           </div>
         </div>
@@ -141,10 +141,10 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Why Choose Us
+              Why Choose Laura Coleman Travel
             </h2>
             <p className="text-gray-700 text-lg max-w-2xl mx-auto">
-              Experience the difference with our dedicated travel planning services
+              Personal expert service backed by Whitney World Travel's proven track record
             </p>
           </div>
 
@@ -155,9 +155,9 @@ export default async function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-900">Expert Planning</h3>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">Disney & Universal Expert</h3>
               <p className="text-gray-700 leading-relaxed">
-                Our experienced travel specialists know Disney and cruises inside out
+                Specialized knowledge of Disney, Universal, and cruise vacations that saves you time and money
               </p>
             </div>
 
@@ -167,9 +167,9 @@ export default async function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-900">Best Value</h3>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">Stress-Free Planning</h3>
               <p className="text-gray-700 leading-relaxed">
-                Competitive pricing and exclusive deals on vacation packages
+                I handle all the details so you can focus on the excitement of your upcoming adventure
               </p>
             </div>
 

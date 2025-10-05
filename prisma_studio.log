@@ -1,0 +1,29 @@
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+Prisma Studio is up on http://localhost:5555
+node:events:497
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::5555
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at z6.start (C:\Projects\VacationPlanner\node_modules\prisma\build\index.js:4818:14103)
+    at r.parse (C:\Projects\VacationPlanner\node_modules\prisma\build\index.js:4857:1134)
+    at async r.parse (C:\Projects\VacationPlanner\node_modules\prisma\build\index.js:4077:1870)
+    at async Bkt (C:\Projects\VacationPlanner\node_modules\prisma\build\index.js:4903:132)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 5555
+}
+
+Node.js v22.20.0

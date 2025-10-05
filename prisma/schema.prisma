@@ -125,30 +125,37 @@ model Customer {
 }
 
 model ContactInquiry {
-  id           String           @id @default(uuid())
-  firstName    String
-  lastName     String
-  email        String
-  phone        String
-  customerId   String?
-  packageId    String?
-  packageTitle String?
-  startDate    DateTime?
-  endDate      DateTime?
-  flexible     Boolean          @default(true)
-  adults       Int              @default(2)
-  children     Int              @default(0)
-  childAges    String
-  budgetRange  String?
-  message      String
-  status       String           @default("new")
-  source       String?
-  userAgent    String?
-  ipAddress    String?
-  createdAt    DateTime         @default(now())
-  updatedAt    DateTime         @updatedAt
-  customer     Customer?        @relation(fields: [customerId], references: [id])
-  package      VacationPackage? @relation(fields: [packageId], references: [id])
+  id              String           @id @default(uuid())
+  firstName       String
+  lastName        String
+  email           String
+  phone           String
+  customerId      String?
+  packageId       String?
+  packageTitle    String?
+  startDate       DateTime?
+  endDate         DateTime?
+  flexible        Boolean          @default(true)
+  adults          Int              @default(2)
+  children        Int              @default(0)
+  childAges       String
+  budgetRange     String?
+  message         String
+  status          String           @default("new")
+  source          String?
+  userAgent       String?
+  ipAddress       String?
+  // Agent tracking fields
+  notes           String?          @db.Text // Agent's private notes
+  quotedAmount    Decimal?         // Quoted vacation price
+  commissionRate  Decimal?         @default(10.00) // Commission percentage (default 10%)
+  commissionAmount Decimal?        // Calculated commission amount
+  // Client checklist (JSON string)
+  checklist       String?          @db.Text // JSON array of checklist items
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  customer        Customer?        @relation(fields: [customerId], references: [id])
+  package         VacationPackage? @relation(fields: [packageId], references: [id])
 
   @@index([status])
   @@index([email])

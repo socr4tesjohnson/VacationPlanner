@@ -4,6 +4,12 @@ import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 
+interface ChecklistItem {
+  id: string;
+  text: string;
+  completed: boolean;
+}
+
 interface Inquiry {
   id: string;
   firstName: string;
@@ -20,9 +26,27 @@ interface Inquiry {
   budgetRange: string | null;
   message: string;
   status: string;
+  notes: string | null;
+  quotedAmount: number | null;
+  commissionRate: number | null;
+  commissionAmount: number | null;
+  checklist: string | null;
   createdAt: string;
   updatedAt: string;
 }
+
+const DEFAULT_CHECKLIST_ITEMS = [
+  { id: '1', text: 'Travel insurance discussed', completed: false },
+  { id: '2', text: 'Dining plan preferences', completed: false },
+  { id: '3', text: 'Park tickets included', completed: false },
+  { id: '4', text: 'Hotel preferences confirmed', completed: false },
+  { id: '5', text: 'Transportation needs (airport, parks)', completed: false },
+  { id: '6', text: 'Special occasions (birthday, anniversary)', completed: false },
+  { id: '7', text: 'Dietary restrictions noted', completed: false },
+  { id: '8', text: 'Character dining reservations', completed: false },
+  { id: '9', text: 'Genie+ / Lightning Lane discussed', completed: false },
+  { id: '10', text: 'Payment schedule confirmed', completed: false },
+];
 
 export default function InquiryDetailPage() {
   const router = useRouter();
@@ -31,11 +55,15 @@ export default function InquiryDetailPage() {
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
   const [error, setError] = useState("");
+  const [notes, setNotes] = useState("");
+  const [quotedAmount, setQuotedAmount] = useState("");
+  const [commissionRate, setCommissionRate] = useState("10");
+  const [checklist, setChecklist] = useState<ChecklistItem[]>(DEFAULT_CHECKLIST_ITEMS);
 
   useEffect(() => {
-    const token = localStorage.getItem("admin_token");
+    const token = localStorage.getItem("session_token");
     if (!token) {
-      router.push("/admin");
+      router.push("/login");
       return;
     }
 
@@ -44,7 +72,7 @@ export default function InquiryDetailPage() {
 
   const fetchInquiry = async () => {
     try {
-      const token = localStorage.getItem("admin_token");
+      const token = localStorage.getItem("session_token");
       const response = await fetch(`/api/admin/inquiries/${params.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -52,13 +80,27 @@ export default function InquiryDetailPage() {
       });
 
       if (response.status === 401) {
-        localStorage.removeItem("admin_token");
-        router.push("/admin");
+        localStorage.removeItem("session_token");
+        router.push("/login");
         return;
       }
 
       const data = await response.json();
       setInquiry(data.inquiry);
+
+      // Load saved data into form fields
+      setNotes(data.inquiry.notes || "");
+      setQuotedAmount(data.inquiry.quotedAmount?.toString() || "");
+      setCommissionRate(data.inquiry.commissionRate?.toString() || "10");
+
+      // Load checklist from JSON or use default
+      if (data.inquiry.checklist) {
+        try {
+          setChecklist(JSON.parse(data.inquiry.checklist));
+        } catch {
+          setChecklist(DEFAULT_CHECKLIST_ITEMS);
+        }
+      }
     } catch (err) {
       setError("Failed to load inquiry");
     } finally {
@@ -66,12 +108,91 @@ export default function InquiryDetailPage() {
     }
   };
 
+  const saveNotes = async () => {
+    if (!inquiry) return;
+
+    try {
+      const token = localStorage.getItem("session_token");
+      await fetch(`/api/admin/inquiries/${params.id}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ notes }),
+      });
+    } catch (err) {
+      setError("Failed to save notes");
+    }
+  };
+
+  const saveQuote = async () => {
+    if (!inquiry) return;
+
+    const quoted = parseFloat(quotedAmount) || 0;
+    const rate = parseFloat(commissionRate) || 10;
+    const commission = (quoted * rate) / 100;
+
+    try {
+      const token = localStorage.getItem("session_token");
+      const response = await fetch(`/api/admin/inquiries/${params.id}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          quotedAmount: quoted,
+          commissionRate: rate,
+          commissionAmount: commission
+        }),
+      });
+
+      if (response.ok) {
+        setInquiry({
+          ...inquiry,
+          quotedAmount: quoted,
+          commissionRate: rate,
+          commissionAmount: commission
+        });
+      }
+    } catch (err) {
+      setError("Failed to save quote");
+    }
+  };
+
+  const saveChecklist = async (updatedChecklist: ChecklistItem[]) => {
+    if (!inquiry) return;
+
+    try {
+      const token = localStorage.getItem("session_token");
+      await fetch(`/api/admin/inquiries/${params.id}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ checklist: JSON.stringify(updatedChecklist) }),
+      });
+    } catch (err) {
+      setError("Failed to save checklist");
+    }
+  };
+
+  const toggleChecklistItem = (id: string) => {
+    const updated = checklist.map(item =>
+      item.id === id ? { ...item, completed: !item.completed } : item
+    );
+    setChecklist(updated);
+    saveChecklist(updated);
+  };
+
   const updateStatus = async (newStatus: string) => {
     if (!inquiry) return;
 
     setUpdating(true);
     try {
-      const token = localStorage.getItem("admin_token");
+      const token = localStorage.getItem("session_token");
       const response = await fetch(`/api/admin/inquiries/${params.id}`, {
         method: "PATCH",
         headers: {
@@ -273,6 +394,95 @@ export default function InquiryDetailPage() {
           <div className="bg-gray-50 rounded-lg p-4">
             <p className="text-gray-900 whitespace-pre-wrap">{inquiry.message}</p>
           </div>
+        </div>
+
+        {/* Quote & Commission Tracker */}
+        <div className="bg-white rounded-lg shadow p-6 mt-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">💰 Quote & Commission</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Quoted Amount ($)
+              </label>
+              <input
+                type="number"
+                value={quotedAmount}
+                onChange={(e) => setQuotedAmount(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="0.00"
+                step="0.01"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Commission Rate (%)
+              </label>
+              <input
+                type="number"
+                value={commissionRate}
+                onChange={(e) => setCommissionRate(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="10"
+                step="0.1"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Your Commission
+              </label>
+              <div className="w-full px-3 py-2 bg-green-50 border-2 border-green-500 rounded-lg font-bold text-green-700 text-lg">
+                ${((parseFloat(quotedAmount) || 0) * (parseFloat(commissionRate) || 0) / 100).toFixed(2)}
+              </div>
+            </div>
+          </div>
+          <button
+            onClick={saveQuote}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition font-medium"
+          >
+            Save Quote & Commission
+          </button>
+        </div>
+
+        {/* Client Checklist */}
+        <div className="bg-white rounded-lg shadow p-6 mt-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">✅ Client Checklist</h2>
+          <p className="text-sm text-gray-600 mb-4">Track what you've discussed with the client</p>
+          <div className="space-y-2">
+            {checklist.map((item) => (
+              <label
+                key={item.id}
+                className="flex items-center p-3 rounded-lg hover:bg-gray-50 cursor-pointer transition"
+              >
+                <input
+                  type="checkbox"
+                  checked={item.completed}
+                  onChange={() => toggleChecklistItem(item.id)}
+                  className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                />
+                <span className={`ml-3 text-gray-700 ${item.completed ? 'line-through text-gray-400' : ''}`}>
+                  {item.text}
+                </span>
+              </label>
+            ))}
+          </div>
+          <div className="mt-4 text-sm text-gray-600">
+            Completed: {checklist.filter(item => item.completed).length} / {checklist.length}
+          </div>
+        </div>
+
+        {/* Private Notes */}
+        <div className="bg-white rounded-lg shadow p-6 mt-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">📝 Private Notes</h2>
+          <p className="text-sm text-gray-600 mb-3">Only you can see these notes</p>
+          <textarea
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            onBlur={saveNotes}
+            rows={6}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            placeholder="Add your private notes about this client, conversation highlights, special requests, etc..."
+          />
+          <div className="text-xs text-gray-500 mt-2">Auto-saves when you click away</div>
         </div>
 
         {/* Metadata */}

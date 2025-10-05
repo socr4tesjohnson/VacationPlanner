@@ -99,7 +99,7 @@ function RecommendationsContent() {
               href="/contact"
               className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition inline-block"
             >
-              Submit New Inquiry
+              Contact Laura
             </Link>
           </div>
         </div>
@@ -205,7 +205,7 @@ function RecommendationsContent() {
                         href="/contact"
                         className="border-2 border-blue-600 text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition"
                       >
-                        Book This Package
+                        Plan with Laura
                       </Link>
                     </div>
                   </div>
@@ -231,7 +231,7 @@ function RecommendationsContent() {
               href="/contact"
               className="border-2 border-gray-600 text-gray-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition"
             >
-              Submit New Inquiry
+              Contact Laura
             </Link>
           </div>
         </div>
