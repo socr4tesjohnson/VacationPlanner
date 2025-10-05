@@ -17,13 +17,18 @@ async function handleGET(
       return NextResponse.json({ error: "Inquiry not found" }, { status: 404 });
     }
 
+    // Convert Decimal fields to numbers for JSON serialization
+    const quotedAmount = inquiry.quotedAmount ? Number(inquiry.quotedAmount) : null;
+    const commissionRate = inquiry.commissionRate ? Number(inquiry.commissionRate) : null;
+    const commissionAmount = inquiry.commissionAmount ? Number(inquiry.commissionAmount) : null;
+
     return NextResponse.json({
       success: true,
       inquiry: {
         ...inquiry,
-        quotedAmount: inquiry.quotedAmount?.toNumber() ?? null,
-        commissionRate: inquiry.commissionRate?.toNumber() ?? null,
-        commissionAmount: inquiry.commissionAmount?.toNumber() ?? null,
+        quotedAmount,
+        commissionRate,
+        commissionAmount,
       },
     });
   } catch (error) {
