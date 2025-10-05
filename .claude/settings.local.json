@@ -21,7 +21,9 @@
       "Bash(gh run view:*)",
       "Bash(git log:*)",
       "Bash(npm run format:check:*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(curl:*)",
+      "Bash(set CI=true)"
     ],
     "deny": [],
     "ask": []

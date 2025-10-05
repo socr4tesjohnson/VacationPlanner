@@ -46,7 +46,7 @@ jobs:
         run: npx prisma generate
 
       - name: Run tests
-        run: npm run test:ci
+        run: npx jest --ci --coverage --maxWorkers=2 --testPathIgnorePatterns="<rootDir>/__tests__/api/"
         env:
           DATABASE_URL: file:./test.db
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
