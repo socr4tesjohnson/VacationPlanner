@@ -20,13 +20,13 @@ async function handleGET(
     // Convert Decimal fields to numbers for JSON serialization
     // Using type assertion to handle optional fields that may not be in older Prisma client
     const inquiryData: any = inquiry;
-    const quotedAmount = inquiryData.quotedAmount
+    const quotedAmountNumber = inquiryData.quotedAmount
       ? Number(inquiryData.quotedAmount)
       : null;
-    const commissionRate = inquiryData.commissionRate
+    const commissionRateNumber = inquiryData.commissionRate
       ? Number(inquiryData.commissionRate)
       : null;
-    const commissionAmount = inquiryData.commissionAmount
+    const commissionAmountNumber = inquiryData.commissionAmount
       ? Number(inquiryData.commissionAmount)
       : null;
 
@@ -34,9 +34,9 @@ async function handleGET(
       success: true,
       inquiry: {
         ...inquiry,
-        quotedAmount,
-        commissionRate,
-        commissionAmount,
+        quotedAmount: quotedAmountNumber,
+        commissionRate: commissionRateNumber,
+        commissionAmount: commissionAmountNumber,
       },
     });
   } catch (error) {
@@ -99,13 +99,13 @@ async function handlePATCH(
     // Convert Decimal fields to numbers for JSON serialization
     // Using type assertion to handle optional fields that may not be in older Prisma client
     const inquiryData: any = inquiry;
-    const quotedAmount = inquiryData.quotedAmount
+    const quotedAmountNumber = inquiryData.quotedAmount
       ? Number(inquiryData.quotedAmount)
       : null;
-    const commissionRate = inquiryData.commissionRate
+    const commissionRateNumber = inquiryData.commissionRate
       ? Number(inquiryData.commissionRate)
       : null;
-    const commissionAmount = inquiryData.commissionAmount
+    const commissionAmountNumber = inquiryData.commissionAmount
       ? Number(inquiryData.commissionAmount)
       : null;
 
@@ -113,9 +113,9 @@ async function handlePATCH(
       success: true,
       inquiry: {
         ...inquiry,
-        quotedAmount,
-        commissionRate,
-        commissionAmount,
+        quotedAmount: quotedAmountNumber,
+        commissionRate: commissionRateNumber,
+        commissionAmount: commissionAmountNumber,
       },
     });
   } catch (error) {
