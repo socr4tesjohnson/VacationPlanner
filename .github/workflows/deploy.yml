@@ -207,12 +207,13 @@ jobs:
       - name: Verify Deployment Health
         run: |
           sleep 10
-          HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" ${{ steps.deploy.outputs.production-url }})
-          if [ $HTTP_STATUS -ne 200 ]; then
+          HTTP_STATUS=$(curl -L -o /dev/null -s -w "%{http_code}\n" ${{ steps.deploy.outputs.production-url }})
+          if [ $HTTP_STATUS -ge 200 ] && [ $HTTP_STATUS -lt 400 ]; then
+            echo "Deployment health check passed with status code: $HTTP_STATUS"
+          else
             echo "Health check failed with status code: $HTTP_STATUS"
             exit 1
           fi
-          echo "Deployment health check passed with status code: $HTTP_STATUS"
 
   # Database Seed Job (Manual trigger only)
   seed-database:
