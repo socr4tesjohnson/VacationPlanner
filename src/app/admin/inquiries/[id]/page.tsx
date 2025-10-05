@@ -446,7 +446,7 @@ export default function InquiryDetailPage() {
         {/* Client Checklist */}
         <div className="bg-white rounded-lg shadow p-6 mt-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">✅ Client Checklist</h2>
-          <p className="text-sm text-gray-600 mb-4">Track what you've discussed with the client</p>
+          <p className="text-sm text-gray-600 mb-4">Track what you&apos;ve discussed with the client</p>
           <div className="space-y-2">
             {checklist.map((item) => (
               <label

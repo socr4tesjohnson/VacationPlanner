@@ -7,7 +7,15 @@
       "Bash(npx:*)",
       "Bash(npm run dev:*)",
       "mcp__ide__getDiagnostics",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd admin dashboard enhancements and client tracking features\n\n- Enhanced admin dashboard with responsive design and full-screen layout\n- Added \"On Trip Now\" tracking for clients currently traveling\n- Implemented quote & commission tracking for inquiries\n- Added client checklist feature for tracking consultation items\n- Updated database schema with new agent tracking fields\n- Improved mobile responsiveness across admin pages\n- Updated CLAUDE.md with comprehensive project documentation\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)",
+      "mcp__vercel__deploy_to_vercel",
+      "Bash(vercel:*)",
+      "mcp__vercel__list_projects",
+      "Bash(gh run list:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run build:*)"
     ],
     "deny": [],
     "ask": []

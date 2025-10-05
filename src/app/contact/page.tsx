@@ -94,9 +94,9 @@ export default function ContactPage() {
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">Let's Plan Your Dream Vacation!</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">Let&apos;s Plan Your Dream Vacation!</h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            I'm Laura Coleman, and I can't wait to help you create magical memories! Share your travel dreams below, and I'll reach out within 24 hours with personalized recommendations tailored just for your family.
+            I&apos;m Laura Coleman, and I can&apos;t wait to help you create magical memories! Share your travel dreams below, and I&apos;ll reach out within 24 hours with personalized recommendations tailored just for your family.
           </p>
           <p className="text-sm text-gray-500 mt-3">
             No pressure, no obligation — just great vacation ideas designed around you!
@@ -117,7 +117,7 @@ export default function ContactPage() {
                 ✨ Finding Your Perfect Vacation...
               </h3>
               <p className="text-gray-600 text-center">
-                I'm analyzing your preferences to create the best recommendations just for you!
+                I&apos;m analyzing your preferences to create the best recommendations just for you!
               </p>
             </div>
           </div>
@@ -280,13 +280,13 @@ export default function ContactPage() {
 
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  What's your approximate budget?
+                  What&apos;s your approximate budget?
                 </label>
                 <select
                   {...register("budgetRange")}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
-                  <option value="">I'm not sure yet</option>
+                  <option value="">I&apos;m not sure yet</option>
                   <option value="under-2000">Under $2,000</option>
                   <option value="2000-5000">$2,000 - $5,000</option>
                   <option value="5000-10000">$5,000 - $10,000</option>
@@ -344,7 +344,7 @@ export default function ContactPage() {
         <div className="mt-12 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-8 text-center">
           <h3 className="text-xl font-bold text-gray-900 mb-3">Prefer to Chat Directly?</h3>
           <p className="text-gray-700 mb-4">
-            I'd love to hear from you! Find me on social media or through Whitney World Travel.
+            I&apos;d love to hear from you! Find me on social media or through Whitney World Travel.
           </p>
           <div className="flex justify-center gap-4 mb-4">
             <a

@@ -83,7 +83,7 @@ export default async function Home() {
             </span>
           </h1>
           <p className="text-lg md:text-xl mb-12 max-w-2xl mx-auto text-white leading-relaxed">
-            I'm Laura Coleman, and I create stress-free, magical vacations perfectly tailored to your family's dreams and budget
+            I&apos;m Laura Coleman, and I create stress-free, magical vacations perfectly tailored to your family&apos;s dreams and budget
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild variant="primary" size="lg" className="bg-white text-blue-700 hover:bg-blue-50 focus:ring-white/50 shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5">
@@ -144,7 +144,7 @@ export default async function Home() {
               Why Choose Laura Coleman Travel
             </h2>
             <p className="text-gray-700 text-lg max-w-2xl mx-auto">
-              Personal expert service backed by Whitney World Travel's proven track record
+              Personal expert service backed by Whitney World Travel&apos;s proven track record
             </p>
           </div>
 
