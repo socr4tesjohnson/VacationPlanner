@@ -30,7 +30,8 @@
       "mcp__vercel__list_teams",
       "mcp__vercel__list_deployments",
       "mcp__vercel__get_deployment",
-      "mcp__vercel__get_deployment_build_logs"
+      "mcp__vercel__get_deployment_build_logs",
+      "Bash(paste:*)"
     ],
     "deny": [],
     "ask": []
