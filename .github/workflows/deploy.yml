@@ -89,6 +89,7 @@ jobs:
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
+        if: success()
         with:
           name: build-output
           path: .next/
@@ -206,12 +207,18 @@ jobs:
 
       - name: Verify Deployment Health
         run: |
-          sleep 10
-          HTTP_STATUS=$(curl -L -o /dev/null -s -w "%{http_code}\n" ${{ steps.deploy.outputs.production-url }})
-          if [ $HTTP_STATUS -ge 200 ] && [ $HTTP_STATUS -lt 400 ]; then
-            echo "Deployment health check passed with status code: $HTTP_STATUS"
+          echo "Waiting for deployment to be ready..."
+          sleep 30
+          echo "Testing deployment at: ${{ steps.deploy.outputs.production-url }}"
+          HTTP_STATUS=$(curl -L -o /dev/null -s -w "%{http_code}\n" "${{ steps.deploy.outputs.production-url }}")
+          echo "Received HTTP status code: $HTTP_STATUS"
+          if [ "$HTTP_STATUS" -ge 200 ] && [ "$HTTP_STATUS" -lt 400 ]; then
+            echo "✅ Deployment health check passed with status code: $HTTP_STATUS"
+            exit 0
           else
-            echo "Health check failed with status code: $HTTP_STATUS"
+            echo "❌ Health check failed with status code: $HTTP_STATUS"
+            echo "Fetching deployment logs for debugging..."
+            curl -L -v "${{ steps.deploy.outputs.production-url }}" || true
             exit 1
           fi
 
