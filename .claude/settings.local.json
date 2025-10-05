@@ -19,7 +19,9 @@
       "Bash(git commit:*)",
       "WebFetch(domain:github.com)",
       "Bash(gh run view:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(npm run format:check:*)",
+      "Bash(npm run:*)"
     ],
     "deny": [],
     "ask": []
